@@ -1,0 +1,11 @@
+.Sequence{
+    overflow-x: scroll;
+}
+
+.Sequence_InnerContainer{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 1em 0;
+}

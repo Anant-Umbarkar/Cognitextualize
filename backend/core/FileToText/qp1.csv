@@ -1,0 +1,103 @@
+,V1.29,"© 2014 Template Designed by Dr. V. B. Dharmadhikari, WCE, Sangli",,,,,,,DONOT MAKE THIS DOCU PUBLIC,,,,,,,Marks correct: 0; Else 1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,Error Message:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,"
+ ",,,,"WALCHAND COLLEGE OF ENGINEERING, SANGLI.
+(An Autonomous Institute)",,ESE,,,,,,,,,,Max num Questions,Non zero if error,Marks for options,%ge marks for option,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,"First Year  B.Tech. (Civil, Electrical & Electronics)",,,,SELECT COURSE CODE,,,,,Actual total,ExpectedTotal,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,END SEMESTER EXAMINATION SEM. I     DECEMBER-2017,,,,3CH101,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,ENGINEERING CHEMISTRY   (3CH101),,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,"
+ ",Exam Seat Number: _______________________,,,FACULTY,,,,,,,,,,,,,28,29,30,31,32,33,34,35,35,36,37,38,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,"Day, Date and Time:  Saturday, 02/12/2017,      10.30am to 12.30pm",,,,,,,Dr. Pendse M.H. - Powar A.A.,,,,,,,,,,,,,,,,,,,,,,,,208,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,Max Marks:,50,,,,,,,50,50,0,3,0,10,20.0%,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,"IMP: Verify that you have received question paper with correct course, code, branch etc.",,,,,,,Students,208,,,,,,,,,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,Instructions:,,,,"i) All questions are compulsory. Writing question number is compulsory. The answers may not be assessed if question number is not written. 
+ii) Figures to the right of question text indicate full marks. 
+iii) Assume suitable data wherever necessary, Write the answers with neat handwriting.
+iv) Only FX82 series non programmable Calculator is allowed.",,,"Number of Prints
+ ( Regular + Re-reg + Extra)",,,218,,,,,,,,,,16,18,16,0,0,0,0,0,,,,,,,,,,,16,12,0,6,0,0,16,0,0,0,0,0,,,,,,,,,,,6,11,6,10,7,10,0
+,,Text on the right of marks indicates course outcomes (only for faculty use).,,,,,Marks,,,Options,,20%,,,,,,,,,,CO1,CO2,CO3,CO4,CO5,CO6,CO7,CO8,,CO1,CO2,CO3,CO4,CO5,CO6,CO7,CO8,,Desc,An-M,Des,An-S,Prog,Drg,Obj,UT1,UT2,UT3,UT4,UT5,,,,,,,,,,,Module 1,Module 2,Module 3,Module 4,Module 5,Module 6,Mixed
+,,,,Q1,A),What are Primary Standard? Discuss criteria/Requirements for choosing primary standard substances towards preperation of standard solutions used in titrimetry. ,6,CO3,Module 1,Obj,,,,1,A,A),1,,,Q1 A),,,,6,,,,,,,,,Q1(A),,,,,,,,,,,,,6,,,,,,,Outcomes,QuestionType,CourseCode,,,0,0,,,6,,,,,,
+,,,,Q1,B),"List different sources of natural water and compare them with respect to Purity, Impurities present and their significance.
+--OR--
+Define hardness of water? Why it is caused. List different units used to measure hardness of water with interrelation among them.",6,CO2,Module 2,An-S,,,,1,B,B),1,,6,Q1 B),,,6,,,,,,,,,Q1(B),,,,,,,,,,,6,,,,,,,,,,CO1,Desc,3CH101,Module 1,,1,6,,,,6,,,,,
+,,,,Q1,C),"With neat labeled diagram, discuss Pb-Ag system. ",6,CO1,Module 3,Desc,,,,1,C,C),1,,,Q1 C),,6,,,,,,,,,Q1(C),,,,,,,,,6,,,,,,,,,,,,,CO2,An-M,3PH101,Module 2,,0,0,,,,,6,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,CO3,Des,3MA101,Module 3,,0,0,,,,,,,,,
+,,,,Q2,A),"Define alloy and discuss with example purposes of making alloys.
+--OR--
+What are carbon steels? How are they classified? Give composition, properties and uses of High Carbon Steel.",4,CO3,Module 4,Obj,,,,2,A,A),2,,4,Q2 A),,,,4,,,,,,,,,Q2(A),,,,,,,,,,,,,4,,,,,,,CO4,An-S,3AM101,Module 4,,1,4,,,,,,4,,,
+,,,,Q2,B),State compound composition of Portland cement and mention functions of each constituent in setting and hardening of Portland cement with reactions.,6,CO3,Module 4,Obj,,,,2,B,B),2,,,Q2 B),,,,6,,,,,,,,,Q2(B),,,,,,,,,,,,,6,,,,,,,CO5,Prog,3CV101,Module 5,,0,0,,,,,,6,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,CO6,Drg,3EL101,Module 6,,0,0,,,,,,,,,
+,,,,Q3,A),With neat labeled diagram discuss constuction and working of TGA equipment. With proper example describe TGA thermogram. List at least four applications. ,10,CO1,Module 6,Desc,,,,3,A,A),3,,,Q3 A),,10,,,,,,,,,Q3(A),,,,,,,,,10,,,,,,,,,,,,,CO7,Obj,3ME102,Mixed,,0,0,,,,,,,,10,
+,,,,Q3,B),"Following data was recorded while determining calorific value of gaseous fuel by Boy’s gas calorimeter.
+i) Volume of gas burnt at STP = 0.09m3
+ii) Mass of water used in time ‘t’ = 24 Kg
+iii)Temperature of inlet water = 22 0C
+iv) Temperature of outlet  water = 35 0C
+v) Mass of steam condensed = 0.03 Kg
+Calculate Higher and Lower calorific value.
+(Given: Latent heat of condensation of water vapour 587 Kcal/Kg)
+",3,CO2,Module 5,An-M,,,,3,B,B),3,,,Q3 B),,,3,,,,,,,,,Q3(B),,,,,,,,,3,,,,,,,,,,,,CO8,UT1,3HS101,,,0,0,,,,,,,3,,
+,,,,Q3,C),"A sample of coal containing 5% hydrogen was tested in Bomb Calorimeter for it’s calorific value, following data were recorded. Weight of coal burnt= 0.98gm, Acid correction = 55 Cal. Rise in temperature = 2.52 0C, Water equivalent of bomb & calorimeter = 550 gm, Weight of water taken in copper calorimeter = 2200 gm     Latent heat of condensation of steam = 587 cal/gm
+Calculate Gross & Net calorific value.",4,CO2,Module 5,An-M,,,,3,C,C),3,,,Q3 C),,,4,,,,,,,,,Q3(C),,,,,,,,,4,,,,,,,,,,,,,UT2,3HS102,,,0,0,,,,,,,4,,
+,,,,Q3,D),"Compare solid and gaseous fuels with respect to Calorific value,Ignition temperature, Velocity of combustion, Control of combustion, Risk of fire hazard, use for IC engines, Transport and storage, Products of combustion.",5,CO2,Module 2,An-M,,,,3,D,D),3,,,Q3 D),,,5,,,,,,,,,Q3(D),,,,,,,,,5,,,,,,,,,,,,,UT3,3EN101,,,0,0,,,,5,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,UT4,3ME101,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,UT5,3CS101,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3BS103,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3BS102,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2IC503,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2EV501,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2EV502,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2EV503,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2EV511,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2EV513,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2IE511,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2IC502,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2ST501,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2ST502,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2ST503,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2ST511,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2IE502,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2DE501,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2DE502,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2DE503,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2DE511,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2IE522,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2HP502,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2HP503,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2HP504,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2HP511,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2IE531,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2PR501,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2PR502,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2PR503,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2PR511,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2IE542,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2IC501,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2PS501,,,0,0,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2PS502,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2PS503,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2PS514,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2IE551,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2CS501,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2CS502,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2CS503,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2CS511,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2EN501,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2EN502,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2EN503,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2EN512,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2EN513,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2IE572,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2CO501,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2CO502,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2CO503,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2CO511,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2CO512,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2IE582,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2IT501,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2IT502,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2IT511,,,,,,,,,,,,,

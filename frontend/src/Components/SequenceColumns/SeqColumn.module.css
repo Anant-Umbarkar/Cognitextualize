@@ -1,0 +1,60 @@
+.SeqColumn{
+    padding: 1em;
+    border: 3px solid rgb(239 239 239);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    min-width: 20em;
+    min-height: 10em;
+    margin: 0 1em;
+}
+
+.SeqColumn_FieldInfo{
+    width: 100%;
+    text-align: start;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.SeqColumn_FieldInfo input,
+.SeqColumn_FieldInfo textarea,
+.SeqColumn_FieldInfo select
+{
+    padding: 0.5em;
+    margin: 0.5em 0;
+    width: 50%;
+}
+
+.SeqColumn_AddMore{
+    position: absolute;
+    right: 0;
+    top: 50%;
+    padding: 0.5em;
+    width: 1em;
+    height: 1em;
+    border: 3px solid black;
+    border-radius: 50%;
+    transform: translate(50%,-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    cursor: pointer;
+    z-index: 99;
+    font-weight: bolder;
+    color: white;
+}
+
+.SeqColumn_Remove{
+    position: absolute;
+    right: 3%;
+    top: 3%;
+    padding: 0.5em;
+    cursor: pointer;
+    font-weight: bold;
+    color: red;
+}
