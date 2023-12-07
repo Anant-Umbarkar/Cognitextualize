@@ -55,7 +55,7 @@ exports.GetRegex = (data) => {
             "A": '[A-Z]\\)',
             "I": '\\d+\\)'
         },
-        "CO": 'CO\\d+(?!\\w)'
+        "CO": 'CO\\s*\\d'
     };
 
     const seq = JSON.parse(data);
@@ -82,8 +82,8 @@ exports.GetRegex = (data) => {
                     MrkRegex = regex['QN'][seq[index - 1].DenotedBy] + MrkRegex;
                 } else if (seq[index - 1].FieldType == 'CO') {
                     MrkRegex = regex['CO'] + MrkRegex;
-                }
-            }
+                } 
+            } 
 
             // Access next element (if not the last one)
             if (index < seq.length - 1) {
@@ -136,27 +136,33 @@ exports.QuestionData = (data, inputFile) => {
 }
 
 exports.Structurize = (data, inputFile) => {
-    const { questions, regexData } = this.QuestionData(data, inputFile);
-    let StructurizedData = [];
-    questions.forEach((item) => {
-        let structuredItem = {};
+    return new Promise((resolve, reject) => {
+        try {
+            const { questions, regexData } = this.QuestionData(data, inputFile);
+            let StructurizedData = [];
 
-        regexData.forEach((currentRegex) => {
-            console.log(currentRegex)
-            // Using a regular expression to extract the desired information
-            let match = item.match(currentRegex[1])
-            if(match==null) match=[item];
-            if (match) {
-                structuredItem[currentRegex[0]] = match[1]==undefined?match[0]:match[1]; // Store the matching value
-            }
-        });
-        
-        const bloom=findBloomLevelsInText(item);
-        structuredItem["Bloom's Verbs"]=bloom.words;
-        structuredItem["Bloom's Texonomy Level"]=bloom.levels;
+            questions.forEach((item) => {
+                let structuredItem = {};
 
-        StructurizedData.push(structuredItem);
+                regexData.forEach((currentRegex) => {
+                    // Using a regular expression to extract the desired information
+                    let match = item.match(currentRegex[1]);
+                    if (match == null) match = [item];
+                    if (match) {
+                        structuredItem[currentRegex[0]] = match[1] == undefined ? match[0] : match[1]; // Store the matching value
+                    }
+                });
+
+                const bloom = findBloomLevelsInText(item);
+                structuredItem["Bloom's Verbs"] = bloom.words;
+                structuredItem["Bloom's Taxonomy Level"] = bloom.levels;
+
+                StructurizedData.push(structuredItem);
+            });
+
+            resolve(StructurizedData);
+        } catch (error) {
+            reject(error);
+        }
     });
-
-    return StructurizedData;
-}
+};

@@ -78,7 +78,7 @@ const Home = () => {
           },
           {
             id: 18,
-            label: "Bloom's Texonomy Level",
+            label: "Bloom's Taxonomy Level",
             minWidth: 30,
             align: 'center'
           }
