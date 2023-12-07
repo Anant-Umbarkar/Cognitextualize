@@ -1,0 +1,58 @@
+(P .T .O.)V1.29 © 2014 Template Designed by Dr. V. B. Dharmadhikari, WCE, Sangli DONOT MAKE THIS DOCU PUBLIC
+ WALCHAND COLLEGE OF ENGINEERING, SANGLI. 
+(An Autonomous Institute)ESE
+First Year  B.Tech. (Civil, Electrical & Electronics) SELECT COURSE CODE
+END SEMESTER EXAMINATION SEM. I     DECEMBER-2017 3CH101
+ENGINEERING CHEMISTRY   (3CH101)
+ Exam Seat Number: _______________________ FACULTY
+Dr. Pendse M.H. - Powar A.A.
+Max Marks: 50
+IMP: Verify that you have received question paper with correct course, code, branch etc. Students 208
+i) All questions are compulsory. Writing question number is compulsory. The answers may 
+not be assessed if question number is not written. 
+ii) Figures to the right of question text indicate full marks. 
+iii) Assume suitable data wherever necessary, Write the answers with neat handwriting.
+iv) Only FX82 series non programmable Calculator is allowed.Number of Prints
+ ( Regular + Re-reg 
++ Extra)
+Marks Options
+Obj Q1 A) What are Primary Standard? Discuss criteria/Requirements for choosing primary 
+standard substances towards preperation of standard solutions used in titrimetry. 6 CO3 Module 1
+An-S Q1 B) List different sources of natural water and compare them with respect to Purity, 
+Impurities present and their significance.
+--OR--
+Define hardness of water? Why it is caused. List different units used to measure 
+hardness of water with interrelation among them.6 CO2 Module 2
+Desc Q1 C) With neat labeled diagram, discuss Pb-Ag system. 6 CO1 Module 3
+Obj Q2 A) Define alloy and discuss with example purposes of making alloys.
+--OR--
+What are carbon steels? How are they classified? Give composition, properties and 
+uses of High Carbon Steel.4 CO3 Module 4
+Obj Q2 B) State compound composition of Portland cement and mention functions of each 
+constituent in setting and hardening of Portland cement with reactions.6 CO3 Module 4
+(P .T .O.)Desc Q3 A) With neat labeled diagram discuss constuction and working of TGA equipment. With 
+proper example describe TGA thermogram. List at least four applications. 10 CO1 Module 6
+An-M Q3 B) Following data was recorded while determining calorific value of gaseous fuel by 
+Boy’s gas calorimeter.
+i) V olume of gas burnt at STP = 0.09m3
+ii) Mass of water used in time ‘t’ = 24 Kg
+iii)Temperature of inlet water = 22 0C
+iv) Temperature of outlet  water = 35 0C
+v) Mass of steam condensed = 0.03 Kg
+Calculate Higher and Lower calorific value.
+(Given: Latent heat of condensation of water vapour 587 Kcal/Kg)
+3 CO2 Module 5
+An-M Q3 C) A sample of coal containing 5% hydrogen was tested in Bomb Calorimeter for it’s 
+calorific value, following data were recorded. Weight of coal burnt= 0.98gm, Acid 
+correction = 55 Cal. Rise in temperature = 2.52 0C, Water equivalent of bomb & 
+calorimeter = 550 gm, Weight of water taken in copper calorimeter = 2200 gm     
+Latent heat of condensation of steam = 587 cal/gm
+Calculate Gross & Net calorific value.4 CO2 Module 5
+An-M Q3 D) Compare solid and gaseous fuels with respect to Calorific value,Ignition temperature, 
+Velocity of combustion, Control of combustion, Risk of fire hazard, use for IC 
+engines, Transport and storage, Products of combustion.5 CO2 Module 2(P .T .O.)DONOT MAKE THIS DOCU PUBLIC
+SELECT COURSE CODE
+Dr. Pendse M.H. - Powar A.A.
+218
+20%
+(P .T .O.)

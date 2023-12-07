@@ -115,8 +115,8 @@ exports.GetRegex = (data) => {
 
 exports.QuestionData = (data, inputFile) => {
     const regexData = this.GetRegex(data);
+    console.log(regexData,data)
     let previousFieldRegex = regexData[0][1];
-    console.log(previousFieldRegex,regexData)
 
     const text = fs.readFileSync(inputFile, 'utf8');
 

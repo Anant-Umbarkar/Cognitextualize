@@ -75,7 +75,7 @@ exports.convertToText = async (req, res) => {
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
         XLSX.writeFile(wb, xlsxFilePath);
         console.log('XLSX file written successfully');
-
+        
 
           // Save to MongoDB
           const paper = new PaperInfo({
@@ -92,6 +92,7 @@ exports.convertToText = async (req, res) => {
             Sequence: req.body.Sequence,
             "Collected Data": structurizedData,
           });
+
     
           paper.save()
             .then(() => {
@@ -109,7 +110,7 @@ exports.convertToText = async (req, res) => {
         });
 
         childPython.on("close", (code) => {
-            // res.send(Structurize(req.body,outputFilePath));
+            res.send(Structurize(req.body.Sequence,outputFilePath));
         });
     } else {
         console.log("Child process is undefined.");

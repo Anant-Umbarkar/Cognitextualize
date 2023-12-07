@@ -20,7 +20,7 @@ const Sequence = () => {
 
     useEffect(()=>{
         dispatch(FormActions.changeSequence(columns));
-        containerRef.current.scrollLeft=containerRef.current.scrollWidth;
+        // containerRef.current.scrollLeft=containerRef.current.scrollWidth;
     },[columns])
 
     const AddColumn = () => {
