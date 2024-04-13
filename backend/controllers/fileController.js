@@ -5,6 +5,7 @@ const PaperInfo = require("../Model/PaperInfo");
 const { createObjectCsvWriter } = require("csv-writer");
 const XLSX = require("xlsx");
 const fileConverter = require('../core/FileToText/Converter');
+const { Evaluate } = require("../core/evaluate/evaluate");
 
 exports.convertToText = async (req, res) => {
     if (!req.file) {
@@ -55,39 +56,49 @@ const saveToDB = async (Sequence, FormData, outputFilePath) => {
         const structurizedData=await Structurize(Sequence,outputFilePath);
         const timestamp = Date.now();
         const parsedFormData = JSON.parse(FormData);
-
-        const csvFilePath = path.join(__dirname, '../Result', `${parsedFormData["College Name"]}_${timestamp}.csv`);
-        const csvWriter = createObjectCsvWriter({
-            path: csvFilePath,
-            header: Object.keys(structurizedData[0]).map(key => ({ id: key, title: key })),
-        });
-        await csvWriter.writeRecords(structurizedData);
-        console.log('CSV file written successfully');
-
-        const xlsxFilePath = path.join(__dirname, '../Result', `${parsedFormData["College Name"]}_${timestamp}.xlsx`);
-        const ws = XLSX.utils.json_to_sheet(structurizedData);
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
-        XLSX.writeFile(wb, xlsxFilePath);
-        console.log('XLSX file written successfully');
-
-        const paper = new PaperInfo({
-            "College Name": parsedFormData["College Name"],
-            "Branch": parsedFormData.Branch,
-            "Year Of Study": parsedFormData["Year Of Study"],
-            "Semester": parsedFormData.Semester,
-            "Course Name": parsedFormData["Course Name"],
-            "Course Code": parsedFormData["Course Code"],
-            "Course Teacher": parsedFormData["Course Teacher"],
-            "No. Of Questions": parsedFormData["No. Of Questions"],
-            "Total Marks": parsedFormData["Total Marks"],
-            "Time in Hrs": parsedFormData["Time in Hrs"],
-            Sequence: Sequence,
-            "Collected Data": structurizedData,
-        });
+        let sequence=JSON.parse(Sequence)
         // console.log(structurizedData)
-        await paper.save();
-        console.log('Data saved to MongoDB');
+
+        // Evaluate
+        Evaluate(parsedFormData,structurizedData,sequence)
+
+        // SAVE TO CSV
+        
+        // const csvFilePath = path.join(__dirname, '../Result', `${parsedFormData["College Name"]}_${timestamp}.csv`);
+        // const csvWriter = createObjectCsvWriter({
+        //     path: csvFilePath,
+        //     header: Object.keys(structurizedData[0]).map(key => ({ id: key, title: key })),
+        // });
+        // await csvWriter.writeRecords(structurizedData);
+        // console.log('CSV file written successfully');
+
+
+        // SAVE TO XLSX
+
+        // const xlsxFilePath = path.join(__dirname, '../Result', `${parsedFormData["College Name"]}_${timestamp}.xlsx`);
+        // const ws = XLSX.utils.json_to_sheet(structurizedData);
+        // const wb = XLSX.utils.book_new();
+        // XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
+        // XLSX.writeFile(wb, xlsxFilePath);
+        // console.log('XLSX file written successfully');
+
+        // const paper = new PaperInfo({
+        //     "College Name": parsedFormData["College Name"],
+        //     "Branch": parsedFormData.Branch,
+        //     "Year Of Study": parsedFormData["Year Of Study"],
+        //     "Semester": parsedFormData.Semester,
+        //     "Course Name": parsedFormData["Course Name"],
+        //     "Course Code": parsedFormData["Course Code"],
+        //     "Course Teacher": parsedFormData["Course Teacher"],
+        //     "No. Of Questions": parsedFormData["No. Of Questions"],
+        //     "Total Marks": parsedFormData["Total Marks"],
+        //     "Time in Hrs": parsedFormData["Time in Hrs"],
+        //     Sequence: Sequence,
+        //     "Collected Data": structurizedData,
+        // });
+        // console.log(structurizedData)
+        // await paper.save();
+        // console.log('Data saved to MongoDB');
         return structurizedData;
     } catch (error) {
         console.error('Error saving to MongoDB:', error);

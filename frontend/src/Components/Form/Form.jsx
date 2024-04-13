@@ -56,6 +56,26 @@ const field=[
         label:"Time in Hrs",
         name:"time",
     },
+    {
+        id:11,
+        label:"CO1",
+        name:"CO1",
+    },
+    {
+        id:12,
+        label:"CO2",
+        name:"CO2",
+    },
+    {
+        id:13,
+        label:"CO3",
+        name:"CO3",
+    },
+    {
+        id:14,
+        label:"Hours per module (1 to 6 space seperated) ",
+        name:"ModuleHrs",
+    },
   ]
 
 const Form = () => {
@@ -71,6 +91,10 @@ const Form = () => {
     "No. Of Questions": '',
     "Total Marks": '',
     "Time in Hrs": '',
+    "CO1": '',
+    "CO2": '',
+    "CO3": '',
+    "ModuleHrs":''
   });
 
   useEffect(()=>{
