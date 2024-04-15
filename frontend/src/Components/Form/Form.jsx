@@ -71,11 +71,6 @@ const field=[
         label:"CO3",
         name:"CO3",
     },
-    {
-        id:14,
-        label:"Hours per module (1 to 6 space seperated) ",
-        name:"ModuleHrs",
-    },
   ]
 
 const Form = () => {
@@ -94,7 +89,6 @@ const Form = () => {
     "CO1": '',
     "CO2": '',
     "CO3": '',
-    "ModuleHrs":''
   });
 
   useEffect(()=>{

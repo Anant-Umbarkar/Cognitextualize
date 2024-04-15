@@ -33,7 +33,7 @@ function Normalize(seqData){
     return seqData;
 }
 
-exports.Evaluate=(FormData,SequenceData,sequence,pre_data)=>{
+exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
 
     // Convert object to array of [key, value] pairs
     let dataArray = Object.entries(pre_data);
@@ -103,7 +103,7 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data)=>{
 
 
     // Module Hrs
-    let Module_Hrs=FormData["Hours per module (1 to 6 space seperated) "].split(" ");
+
     let totalHrs=0;
     Module_Hrs.map(i=>{
         totalHrs+=(+i)

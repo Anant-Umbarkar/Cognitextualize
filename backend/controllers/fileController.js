@@ -43,7 +43,7 @@ exports.convertToText = async (req, res) => {
                 return;
         }
 
-        const data = await saveToDB(req.body.Sequence, req.body.FormData, outputFilePath);
+        const data = await saveToDB(req.body.Sequence, req.body.FormData, outputFilePath,req.body.ModuleInfo);
         res.send(data);
     } catch (error) {
         console.error('Error converting file or saving to DB:', error);
@@ -51,7 +51,7 @@ exports.convertToText = async (req, res) => {
     }
 };
 
-const saveToDB = async (Sequence, FormData, outputFilePath) => {
+const saveToDB = async (Sequence, FormData, outputFilePath,ModuleInfo) => {
     try {
         // key = actually CO belongs to
         // 
@@ -73,10 +73,11 @@ const saveToDB = async (Sequence, FormData, outputFilePath) => {
         const timestamp = Date.now();
         const parsedFormData = JSON.parse(FormData);
         let sequence=JSON.parse(Sequence)
+        let moduleInfo=JSON.parse(ModuleInfo)
         // console.log(structurizedData)
 
         // Evaluate
-        Evaluate(parsedFormData,structurizedData,sequence,pre_data)
+        Evaluate(parsedFormData,structurizedData,sequence,pre_data,moduleInfo)
 
         // SAVE TO CSV
         

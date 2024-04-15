@@ -4,6 +4,7 @@ const FormSlice=createSlice({
     name:"ChatSlice",
     initialState:{
         Sequence:[],
+        ModuleInfo:[],
         FormData:{},
     },
     reducers:{
@@ -12,6 +13,9 @@ const FormSlice=createSlice({
         },
         changeFormData(state,actions){
             state.FormData=actions.payload;
+        },
+        changeModuleInfo(state,actions){
+            state.ModuleInfo=actions.payload;
         }
     },
     

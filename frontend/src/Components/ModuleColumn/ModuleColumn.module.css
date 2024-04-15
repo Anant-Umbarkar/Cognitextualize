@@ -1,5 +1,5 @@
-.SeqColumn{
-    padding: 1em;
+.ModuleColumn{
+    padding: 1em 2em 1em 1em;
     border: 3px solid rgb(239 239 239);
     border-radius: 10px;
     display: flex;
