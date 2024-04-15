@@ -1,12 +1,12 @@
 
 // weights in percentage
 let BT_Weights={
-    1:{ level: 0, weights: 0,marks:0,BT_penalty:0 },
-    2:{ level: 0, weights: 0,marks:0,BT_penalty:0 },
-    3:{ level: 0, weights: 0,marks:0,BT_penalty:0 },
-    4:{ level: 0, weights: 0,marks:0,BT_penalty:0 },
-    5:{ level: 0, weights: 0,marks:0,BT_penalty:0 },
-    6:{ level: 0, weights: 0,marks:0,BT_penalty:0 }, 
+    1:{ level: 0, weights: 0,marks:0,BT_penalty:0, No_Of_Questions:0 },
+    2:{ level: 0, weights: 0,marks:0,BT_penalty:0, No_Of_Questions:0 },
+    3:{ level: 0, weights: 0,marks:0,BT_penalty:0, No_Of_Questions:0 },
+    4:{ level: 0, weights: 0,marks:0,BT_penalty:0, No_Of_Questions:0 },
+    5:{ level: 0, weights: 0,marks:0,BT_penalty:0, No_Of_Questions:0 },
+    6:{ level: 0, weights: 0,marks:0,BT_penalty:0, No_Of_Questions:0 }, 
 };
 
 let ModuleWeights=[];
@@ -53,7 +53,8 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data)=>{
             level:i+1,
             weights:item[1].score,
             marks:0,
-            BT_penalty:0
+            BT_penalty:0,
+            No_Of_Questions:0
         };
         // BT_Weights[item[1].level]=i+1;
     });
@@ -78,14 +79,17 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data)=>{
             level:i+1,
             weights:item[1].score,
             marks:0,
-            BT_penalty:0
+            BT_penalty:0,
+            No_Of_Questions:0,
         };;
     });
 
     // Set level to length of pre_data + 1 for any levels that were not present in pre_data
+    let lowestLevel=6;
     for (let key in BT_Weights) {
         if (BT_Weights[key].level === 0) {
             BT_Weights[key].level = Object.keys(pre_data).length + 1;
+            lowestLevel=Object.keys(pre_data).length + 1;
         }
     }
 
@@ -166,10 +170,11 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data)=>{
             LM++;
         }
 
-        QP=QP-LM-(2*HM)+LR+(2*HR);
+        QP=QP+(-LM-(2*HM)+LR+(2*HR));
 
         // Adding BT value for current Question
         BT_Weights[i["Bloom's Taxonomy Level"]].marks+=(+i.M);
+        BT_Weights[i["Bloom's Taxonomy Level"]].No_Of_Questions++;
         // console.log(co)
         CO_Map[co]+=(+i.M);
 
@@ -204,7 +209,40 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data)=>{
         // Module_Map[moduleNumber]++;
         // CO_Map[i.CO]++;
         // BT_Map[i["Bloom's Taxonomy Level"]]++;
-    })
+    });
+
+    // QP best
+    let QPHigh=0,lr=0,hr=0;
+    for(let i=0;i<6;i++){
+        let item=BT_Weights[i+1];
+        let temp=item.level-1;
+        if(temp==1){
+            lr++;
+        } else if(temp>1){
+            hr++;
+        } else {
+            continue;
+        }
+    }
+    QPHigh+=lr+(2*hr);
+
+    // QP worst
+    let QPLow=0,lm=0,hm=0;
+    for(let i=0;i<6;i++){
+        let item=BT_Weights[i+1];
+        let temp=(lowestLevel)-item.level;
+        if(temp==1){
+            lm++;
+        } else if(temp>1){
+            hm++;
+        } else {
+            continue;
+        }
+    }
+    QPLow+=lm+(2*hm);
+    QPLow*=-1;
+
+    let QP_Final=((QP-QPLow)/(QPHigh-QPLow))*100
 
     // calculate C1 penalty 
     for(let i=0;i<6;i++){
@@ -240,5 +278,6 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data)=>{
 
     let P_Final=(C1+C2+C3);
     let PF_Percentage=(P_Final/3)*100;
-    console.log(P_Final,PF_Percentage,C1,C2,C3,penaltyCtr)
+    let FinalScore=(QP_Final+PF_Percentage)/2;
+    console.log(lowestLevel,QPLow,QPHigh,QP_Final,QP,P_Final,PF_Percentage,FinalScore)
 }   
