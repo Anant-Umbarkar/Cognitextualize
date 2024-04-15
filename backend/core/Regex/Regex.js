@@ -18,10 +18,19 @@
         "create": "Synthesis",
     };
 
+    let bloomLevels = {
+        "remember": 1,
+        "understand": 2,
+        "apply": 3,
+        "analyze": 4,
+        "evaluate": 5,
+        "create": 6,
+    };
+
     function findBloomLevel(word) {
         for (const level in bloomsTaxonomyVerbs) {
             if (bloomsTaxonomyVerbs[level].includes(word)) {
-                return bloomsTaxonomyLevels[level];
+                return level;
             }
         }
         return "Not Found";
@@ -50,14 +59,7 @@
       };
       
       function getBloomLevelIndex(level) {
-        const bloomLevels = {
-          "Knowledge": 1,
-          "Comprehension": 2,
-          "Application": 3,
-          "Analysis": 4,
-          "Evaluation": 5,
-          "Synthesis": 6,
-        };
+        
         return bloomLevels[level] || 0; // Return 0 for "Not Found"
       }
       

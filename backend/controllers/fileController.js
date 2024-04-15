@@ -53,6 +53,22 @@ exports.convertToText = async (req, res) => {
 
 const saveToDB = async (Sequence, FormData, outputFilePath) => {
     try {
+        // key = actually CO belongs to
+        // 
+        let pre_data={
+            1:{
+                level:3,
+                score:30,
+            },
+            2:{
+                level:1,
+                score:30,
+            },
+            3:{
+                level:4,
+                score:40,
+            },            
+        }
         const structurizedData=await Structurize(Sequence,outputFilePath);
         const timestamp = Date.now();
         const parsedFormData = JSON.parse(FormData);
@@ -60,7 +76,7 @@ const saveToDB = async (Sequence, FormData, outputFilePath) => {
         // console.log(structurizedData)
 
         // Evaluate
-        Evaluate(parsedFormData,structurizedData,sequence)
+        Evaluate(parsedFormData,structurizedData,sequence,pre_data)
 
         // SAVE TO CSV
         
