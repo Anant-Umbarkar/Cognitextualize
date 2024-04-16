@@ -85,11 +85,10 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
     });
 
     // Set level to length of pre_data + 1 for any levels that were not present in pre_data
-    let lowestLevel=6;
+    let lowestLevel=Object.keys(pre_data).length + 1;
     for (let key in BT_Weights) {
         if (BT_Weights[key].level === 0) {
             BT_Weights[key].level = Object.keys(pre_data).length + 1;
-            lowestLevel=Object.keys(pre_data).length + 1;
         }
     }
 
@@ -160,9 +159,9 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
 
         let D=BT_Weights[i["Bloom's Taxonomy Level"]].level-BT_Weights[co].level;
         // console.log(D);
-        if(D==0){
+        if(D==0 || D==-1){
             LR++;
-        } else if(D<=-1){
+        } else if(D<-1){
             HR++;
         } else if(D>1){
             HM++;
@@ -241,7 +240,12 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
     }
     QPLow+=lm+(2*hm);
     QPLow*=-1;
-
+    if(QP>QPHigh){
+        QP=QPHigh
+    }
+    if(QP<QPLow){
+        QP=QPLow
+    }
     let QP_Final=((QP-QPLow)/(QPHigh-QPLow))*100
 
     // calculate C1 penalty 
@@ -265,6 +269,7 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
             C2+=diff;
         }
     });   
+    // console.log(C2)
 
     // C3
     dataArray.map(item=>{
@@ -280,4 +285,6 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
     let PF_Percentage=(P_Final/3)*100;
     let FinalScore=(QP_Final+PF_Percentage)/2;
     console.log(lowestLevel,QPLow,QPHigh,QP_Final,QP,P_Final,PF_Percentage,FinalScore)
+    console.log(C1,C2,C3)
+    console.log(dataArray,pre_data,BT_Weights)
 }   

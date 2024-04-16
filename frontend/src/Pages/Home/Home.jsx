@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import StickyHeadTable from '../../Components/UI/StickyHeadTable/StickyHeadTable';
 import Form from '../../Components/Form/Form';
 import Module from '../../Components/Module/Module';
+import CO from '../../Components/CO/CO';
 
 const Home = () => {
   // file state
@@ -15,16 +16,29 @@ const Home = () => {
 
   useEffect(() => {
     let sequence=state.Sequence;
+    let coinfo=state.COInfo;
     let moduleHrs=[];
+    let copref={};
+
     state.ModuleInfo.map(item=>{
       moduleHrs=[...moduleHrs,item.hours]
     });
+
+    coinfo.map(item=>{
+      copref[item.id]={
+        level:+item.level,
+        score:(+item.score)*10
+      }
+    });
+
+
     const uploadFileHandler = async () => {
 
       const FileData = new FormData();
       FileData.append("FormData",JSON.stringify(state.FormData));
       FileData.append("Sequence",JSON.stringify(sequence));
       FileData.append("ModuleInfo",JSON.stringify(moduleHrs));
+      FileData.append("COPref",JSON.stringify(copref));
       FileData.append("file", file);
       // FileData.append("upload_preset", "gmcn2mfb");
       console.log(moduleHrs);
@@ -112,6 +126,7 @@ const Home = () => {
     <div>
       <h2>General Info</h2>
       <Form/>
+      <CO/>
       <Module/>
       <Sequence/>
       <UploadFileBtn setfile={setfile} />

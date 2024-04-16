@@ -43,7 +43,7 @@ exports.convertToText = async (req, res) => {
                 return;
         }
 
-        const data = await saveToDB(req.body.Sequence, req.body.FormData, outputFilePath,req.body.ModuleInfo);
+        const data = await saveToDB(req.body.Sequence, req.body.FormData, outputFilePath,req.body.ModuleInfo,req.body.COPref);
         res.send(data);
     } catch (error) {
         console.error('Error converting file or saving to DB:', error);
@@ -51,24 +51,11 @@ exports.convertToText = async (req, res) => {
     }
 };
 
-const saveToDB = async (Sequence, FormData, outputFilePath,ModuleInfo) => {
+const saveToDB = async (Sequence, FormData, outputFilePath,ModuleInfo,COPref) => {
     try {
         // key = actually CO belongs to
         // 
-        let pre_data={
-            1:{
-                level:3,
-                score:30,
-            },
-            2:{
-                level:1,
-                score:30,
-            },
-            3:{
-                level:4,
-                score:40,
-            },            
-        }
+        let pre_data=JSON.parse(COPref)
         const structurizedData=await Structurize(Sequence,outputFilePath);
         const timestamp = Date.now();
         const parsedFormData = JSON.parse(FormData);

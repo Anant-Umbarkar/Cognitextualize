@@ -5,6 +5,8 @@ const FormSlice=createSlice({
     initialState:{
         Sequence:[],
         ModuleInfo:[],
+        COInfo:[],
+        selectedCO:[],
         FormData:{},
     },
     reducers:{
@@ -16,6 +18,12 @@ const FormSlice=createSlice({
         },
         changeModuleInfo(state,actions){
             state.ModuleInfo=actions.payload;
+        },
+        changeCOInfo(state,actions){
+            state.COInfo=actions.payload;
+        },
+        addSelectedCO(state,actions){
+            state.selectedCO.push(actions.payload)
         }
     },
     
