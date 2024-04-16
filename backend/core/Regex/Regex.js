@@ -75,6 +75,7 @@
                 "I": '\\d+\\)'
             },
             "CO": 'CO\\s*\\d'
+            // "CO": 'CO\d'
         };
 
         const seq = JSON.parse(data);

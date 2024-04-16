@@ -3,9 +3,8 @@ import classes from './COColumn.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { FormActions } from '../../store/store';
 
-const COColumn = ({id,last,Add,Remove,Update,desc,w8}) => {
+const COColumn = ({id,last,Add,Remove,Update,w8}) => {
   const [weight,setWeight]=useState(w8);
-  const [description,setDescription]=useState(desc);
   const [BTType,setBTType]=useState();
   let selected=useSelector(state=>state.selectedCO)
   const dispatch=useDispatch();
@@ -13,20 +12,13 @@ const COColumn = ({id,last,Add,Remove,Update,desc,w8}) => {
     <div className={classes.COColumn}>
         <h3>CO{id}</h3>
         <div className={classes.inputFields}>
-        <div className={classes.SeqColumn_FieldInfo}>Description: <input
-        style={{width:35+"em"}} value={description} onChange={(e)=>{
-          setFtitle(e.target.value);
-          Update(id,"description",e.target.value);
-        }} type='text' required/>
-        </div>
-
         <div className={classes.SeqColumn_FieldInfo}>Weightage: <input value={weight} style={{width:2+"em"}} onChange={(e)=>{
           setWeight(e.target.value);
           Update(id,"score",e.target.value);
         }} type='text' required/>
         </div>
 
-        <div className={classes.SeqColumn_FieldInfo}>BT Type: <select style={{width:15+"em"}} onChange={(e)=>{
+        <div className={classes.SeqColumn_FieldInfo}>BT Level: <select style={{width:15+"em"}} onChange={(e)=>{
           if(selected.includes(e.target.value)){
             alert("Blooms Taxonomy Level Already Selected For Some Other Course Outcome")
             e.target.value="Def";

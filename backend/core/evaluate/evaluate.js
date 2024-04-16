@@ -1,4 +1,3 @@
-
 // weights in percentage
 let BT_Weights={
     1:{ level: 0, weights: 0,marks:0,BT_penalty:0, No_Of_Questions:0 },
@@ -95,29 +94,33 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
 
 
     // Find Blooms Level of all the COs
-    // let CO_BT_Level={}
+    let CO_BT_Level={}
     // CO_BT_Level[1]=FindBloomLevelsInText(FormData.CO1).highestLevel;
     // CO_BT_Level[2]=FindBloomLevelsInText(FormData.CO2).highestLevel;
     // CO_BT_Level[3]=FindBloomLevelsInText(FormData.CO3).highestLevel;
 
 
     // Module Hrs
+    let checkModule=true;
+    if(Module_Hrs.length==1 && Module_Hrs[0]==0){
+        checkModule=false;
+    }
+    if(checkModule){
+        let totalHrs=0;
+        Module_Hrs.map(i=>{
+            totalHrs+=(+i)
+        })
 
-    let totalHrs=0;
-    Module_Hrs.map(i=>{
-        totalHrs+=(+i)
-    })
-
-    Module_Hrs.map((v,i)=>{
-        let newObj={
-            expected:(+v)/totalHrs*100,
-            actual:0,
-        }
-        ModuleWeights=[...ModuleWeights,newObj];
-        // console.log(i+1,ModuleWeights[i+1]);
-    })
+        Module_Hrs.map((v,i)=>{
+            let newObj={
+                expected:((+v)/totalHrs)*100,
+                actual:0,
+            }
+            ModuleWeights.push(newObj);
+            // console.log(i+1,ModuleWeights[i+1]);
+        })
     
-    console.log(ModuleWeights)
+    }
     SequenceData=Normalize(SequenceData)
 
     // let sum=0;
@@ -132,40 +135,52 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
     let Module_Map={};
     let BT_Map={};
     SequenceData.map(i=>{
+        console.log(i)
         QT_Map[i["Question Type"]]=0;
-        let numericalValue = i.Module.match(/\d+\.\d+|\d+/);
-        let moduleNumber=0;
-        // Check if numericalValue is found
-        if (numericalValue) {
-            // Convert the found value to a number
-            moduleNumber = parseFloat(numericalValue[0]);
+        let numericalValue,moduleNumber=0;
+        if(checkModule){
+            numericalValue = i.Module.match(/\d+\.\d+|\d+/);
+            // Check if numericalValue is found
+            if (numericalValue) {
+                // Convert the found value to a number
+                moduleNumber = parseFloat(numericalValue[0]);
+                Module_Map[moduleNumber]=0;
+            }
         }
+        
 
         // get the co in number
         let co=parseInt(i.CO.match(/\d+/)[0]);
-
-        Module_Map[moduleNumber]=0;
+        
         CO_Map[co]=0;
         BT_Map[BT_Weights[i["Bloom's Taxonomy Level"]].level]=0;
     })
 
     let QP=0,C1=0,C2=0,C3=0,C4=0,penaltyCtr=0;
+    let newSeqData=SequenceData;
     // console.log(BT_Weights)
-    SequenceData.map(i=>{
+    SequenceData.map((i,ind)=>{
         let LM=0,HM=0,LR=0,HR=0;
         // let D=BT_Weights[i["Bloom's Taxonomy Level"]].level-BT_Weights[i.CO].level;
         let co=parseInt(i.CO.match(/\d+/)[0]);
-        // console.log(i["Bloom's Taxonomy Level"],BT_Weights[i["Bloom's Taxonomy Level"]].level,BT_Weights[co].level);
-
-        let D=BT_Weights[i["Bloom's Taxonomy Level"]].level-BT_Weights[co].level;
+        console.log(i["Bloom's Taxonomy Level"],BT_Weights[i["Bloom's Taxonomy Level"]],co,i.CO);
+        let QHBTL=BT_Weights[i["Bloom's Taxonomy Level"]].level;
+        let COBTL=BT_Weights[co].level;
+        let D=QHBTL-COBTL;
         // console.log(D);
+        // newSeqData=[...newSeqData,newSeqData[ind]["COTBL"]=QHBTL];
+        // newSeqData=[...newSeqData,newSeqData[ind]["Bloom's Taxonomy Level"]=COBTL];
         if(D==0 || D==-1){
+            i["Remark"]="Matches Expected Blooms Level"
             LR++;
         } else if(D<-1){
+            i["Remark"]="Higher then Expected Blooms Level"
             HR++;
         } else if(D>1){
+            i["Remark"]="Lower then Expected Blooms Level"
             HM++;
         } else if(D==1){
+            i["Remark"]="Lower then Expected Blooms Level"
             LM++;
         }
 
@@ -181,17 +196,22 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
 
         // // Adding Module value for current Question
         // // Find Modulenumber and increment the counter
-        let numericalValue = i.Module.match(/\d+\.\d+|\d+/);
-        let moduleNumber=0;
-        // Check if numericalValue is found
-        if (numericalValue) {
-            // Convert the found value to a number
-            moduleNumber = parseFloat(numericalValue[0]);
+        let numericalValue,moduleNumber=0;
+        if(checkModule){
+            numericalValue = i.Module.match(/\d+\.\d+|\d+/);
+            moduleNumber=0;
+            // Check if numericalValue is found
+            if (numericalValue) {
+                // Convert the found value to a number
+                moduleNumber = parseFloat(numericalValue[0]);
+            }
+            let act=ModuleWeights[moduleNumber-1].actual;
+            ModuleWeights[moduleNumber-1].actual=(+i.M)+act;
         }
-        ModuleWeights[moduleNumber-1].actual+=(+i.M);
+        
 
-        // // Adding CO value for current Question
-        // // get CO number from the CO string
+        // Adding CO value for current Question
+        // get CO number from the CO string
         // let CO_num_Value = i.CO.match(/\d+\.\d+|\d+/);
         // let CONumber=0;
         // // Check if numericalValue is found
@@ -203,11 +223,11 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
 
 
 
-        // // -------- Maintaining count for BT,Module,CO and QT -------
-        // QT_Map[i["Question Type"]]++;
-        // Module_Map[moduleNumber]++;
-        // CO_Map[i.CO]++;
-        // BT_Map[i["Bloom's Taxonomy Level"]]++;
+        // -------- Maintaining count for BT,Module,CO and QT -------
+        QT_Map[i["Question Type"]]++;
+        Module_Map[moduleNumber]++;
+        CO_Map[i.CO]++;
+        BT_Map[i["Bloom's Taxonomy Level"]]++;
     });
 
     // QP best
@@ -249,8 +269,10 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
     let QP_Final=((QP-QPLow)/(QPHigh-QPLow))*100
 
     // calculate C1 penalty 
+    let BT_Data=[]
     for(let i=0;i<6;i++){
         let item=BT_Weights[i+1];
+        BT_Data.push({expected:item.weights,actual:item.marks})
         if(item.weights!=0 && item.marks==0){
             penaltyCtr++;
         } else {
@@ -263,28 +285,45 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
     }
 
     // C2
-    ModuleWeights.map(item=>{
-        let diff=(item.expected-item.actual)/item.expected;
-        if(diff>=0){
-            C2+=diff;
-        }
-    });   
+    if(checkModule){
+        ModuleWeights.map(item=>{
+            let diff=(item.expected-item.actual)/item.expected;
+            if(diff>=0){
+                C2+=diff;
+            }
+        });   
+    }
     // console.log(C2)
-
+    let CO_Data=[]
     // C3
     dataArray.map(item=>{
         console.log(item[1].score,CO_Map[item[0]])
+        CO_Data.push({expected:item[1].score,actual:CO_Map[item[0]]})
         let diff=(item[1].score-CO_Map[item[0]])/item[1].score;
-
+        
         if(diff>0){
             C3+=diff;
         }
     });
-
-    let P_Final=(C1+C2+C3);
-    let PF_Percentage=(P_Final/3)*100;
+    let P_Final,PF_Percentage;
+    if(checkModule){
+        P_Final=(C1+C2+C3);
+        PF_Percentage=(P_Final/3)*100;
+    } else {
+        P_Final=(C1+C3);
+        PF_Percentage=(P_Final/2)*100;
+    }
+    
     let FinalScore=(QP_Final+PF_Percentage)/2;
-    console.log(lowestLevel,QPLow,QPHigh,QP_Final,QP,P_Final,PF_Percentage,FinalScore)
-    console.log(C1,C2,C3)
-    console.log(dataArray,pre_data,BT_Weights)
+    // console.log(lowestLevel,QPLow,QPHigh,QP_Final,QP,P_Final,PF_Percentage,FinalScore)
+    // console.log(C1,C2,C3)
+    // console.log(dataArray,pre_data,BT_Weights,CO_Map)
+    console.log(ModuleWeights,BT_Data,CO_Data)
+    return {
+        QuestionData:SequenceData,
+        ModuleData:ModuleWeights,
+        BloomsData:BT_Data,
+        COData:CO_Data,
+        FinalScore:FinalScore
+    }
 }   

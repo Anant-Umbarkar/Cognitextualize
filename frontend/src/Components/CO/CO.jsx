@@ -13,7 +13,6 @@ const CO = () => {
     // current state
     const [columns,setColumns]=useState([{
         id:1,
-        description:"",
         score:0
     }]);
 
@@ -26,7 +25,6 @@ const CO = () => {
         setColumns(prevColumns => {
             const newColumn = {
                 id:prevColumns[prevColumns.length-1].id+1,
-                description:"",
                 score:0
             };
             return [...prevColumns, newColumn];
@@ -65,7 +63,7 @@ const CO = () => {
     <div className={classes.CO} ref={containerRef}>
         <div className={classes.Sequence_InnerContainer}>
             {columns[0]!=null ? 
-            columns.map(item=><COColumn key={item.id} Update={updateColumn} Remove={RemoveColumn} Add={AddColumn} last={item.id==columns.length} id={item.id} w8={0} desc={""}/>):null}
+            columns.map(item=><COColumn key={item.id} Update={updateColumn} Remove={RemoveColumn} Add={AddColumn} last={item.id==columns.length} id={item.id} w8={0}/>):null}
         </div>
     </div>
     </>

@@ -64,7 +64,7 @@ const saveToDB = async (Sequence, FormData, outputFilePath,ModuleInfo,COPref) =>
         // console.log(structurizedData)
 
         // Evaluate
-        Evaluate(parsedFormData,structurizedData,sequence,pre_data,moduleInfo)
+        let result=Evaluate(parsedFormData,structurizedData,sequence,pre_data,moduleInfo)
 
         // SAVE TO CSV
         
@@ -103,7 +103,7 @@ const saveToDB = async (Sequence, FormData, outputFilePath,ModuleInfo,COPref) =>
         // console.log(structurizedData)
         // await paper.save();
         // console.log('Data saved to MongoDB');
-        return structurizedData;
+        return result;
     } catch (error) {
         console.error('Error saving to MongoDB:', error);
         return [];
