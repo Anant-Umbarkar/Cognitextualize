@@ -10,6 +10,8 @@
     min-width: 20em;
     min-height: 10em;
     margin: 1em;
+    background: white;
+    border: 1px solid black;
 }
 
 .SeqColumn_FieldInfo{

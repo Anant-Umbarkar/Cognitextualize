@@ -128,7 +128,7 @@ const StickyHeadTable=({data,columns})=>{
     setPage(0);
   };
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+    <Paper sx={{ width: '95%', overflow: 'hidden', margin: '0 auto' }}>
       <TableContainer sx={{ maxHeight: 550 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
