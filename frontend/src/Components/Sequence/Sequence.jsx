@@ -69,7 +69,7 @@ const Sequence = () => {
 <h1 >Sequence Info</h1>
 </div>
     <div className={classes.Sequence} ref={containerRef} >
-        <div className='${classes.Sequence_InnerContainer} d-flex align-items-center justify-content-center'>
+        <div className='${classes.Sequence_InnerContainer} d-flex align-items-center justify-content-center flex-wrap'>
             {columns[0]!=null ? 
             columns.map(item=><SeqColumn key={item.id} Update={updateColumn} Remove={RemoveColumn} Add={AddColumn} last={item.id==columns.length} id={item.id} FieldTitle={item.FieldTitle} fieldType={item.FieldType} denotedBy={item.DenotedBy}/>):null}
         </div>

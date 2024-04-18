@@ -51,26 +51,6 @@ const field=[
         label:"Total Marks",
         name:"TMarks",
     },
-    {
-        id:10,
-        label:"Time in Hrs",
-        name:"time",
-    },
-    {
-        id:11,
-        label:"CO1",
-        name:"CO1",
-    },
-    {
-        id:12,
-        label:"CO2",
-        name:"CO2",
-    },
-    {
-        id:13,
-        label:"CO3",
-        name:"CO3",
-    },
   ]
 
 const Form = () => {
@@ -85,10 +65,6 @@ const Form = () => {
     "Course Teacher": '',
     "No. Of Questions": '',
     "Total Marks": '',
-    "Time in Hrs": '',
-    "CO1": '',
-    "CO2": '',
-    "CO3": '',
   });
 
   useEffect(()=>{

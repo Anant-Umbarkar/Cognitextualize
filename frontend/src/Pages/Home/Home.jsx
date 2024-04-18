@@ -335,7 +335,6 @@ const Home = () => {
       <Module/>
       <Sequence/>
       <UploadFileBtn setfile={setfile} />
-      <Footer/>
       {tableData.data.QuestionData!=undefined?
       <>
         <StickyHeadTable data={tableData.data.QuestionData} columns={tableData.columns}/>
@@ -345,6 +344,7 @@ const Home = () => {
         <h2 style={{"textAlign":"left"}}>Final Score In Percentage: {tableData.data.FinalScore}</h2>
       </>
       :null}
+      <Footer/>
     </div>
   )
 }

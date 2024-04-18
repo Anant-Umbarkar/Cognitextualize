@@ -65,7 +65,7 @@ const Module = () => {
 <h1 >Module Info</h1>
 </div>
     <div className={classes.Module} ref={containerRef} >
-        <div className='${classes.Sequence_InnerContainer} d-flex align-items-center justify-content-center '>
+        <div className='${classes.Sequence_InnerContainer} d-flex align-items-center justify-content-center flex-wrap'>
             {columns[0]!=null ? 
             columns.map(item=><ModuleColumn key={item.id} Update={updateColumn} Remove={RemoveColumn} Add={AddColumn} last={item.id==columns.length} id={item.id}/>):null}
         </div>

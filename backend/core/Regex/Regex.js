@@ -128,7 +128,7 @@
                 RegexData.push([item.FieldTitle,QRegex]);
             }
         });
-
+        console.log(RegexData)
         return RegexData;
     }
 
@@ -145,7 +145,7 @@
 
         const questions = [];
 
-        console.log("previois : ",previousFieldMatches)
+        // console.log("previois : ",previousFieldMatches)
 
         for (let i = 0; i < previousFieldMatches.length; i++) {
             const startIndex = previousFieldMatches[i].index;

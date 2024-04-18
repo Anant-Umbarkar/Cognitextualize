@@ -153,6 +153,7 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
         let co=parseInt(i.CO.match(/\d+/)[0]);
         
         CO_Map[co]=0;
+        // console.log(BT_Weights,i["Bloom's Taxonomy Level"])
         BT_Map[BT_Weights[i["Bloom's Taxonomy Level"]].level]=0;
     })
 
@@ -163,13 +164,9 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
         let LM=0,HM=0,LR=0,HR=0;
         // let D=BT_Weights[i["Bloom's Taxonomy Level"]].level-BT_Weights[i.CO].level;
         let co=parseInt(i.CO.match(/\d+/)[0]);
-        console.log(i["Bloom's Taxonomy Level"],BT_Weights[i["Bloom's Taxonomy Level"]],co,i.CO);
         let QHBTL=BT_Weights[i["Bloom's Taxonomy Level"]].level;
         let COBTL=BT_Weights[co].level;
         let D=QHBTL-COBTL;
-        // console.log(D);
-        // newSeqData=[...newSeqData,newSeqData[ind]["COTBL"]=QHBTL];
-        // newSeqData=[...newSeqData,newSeqData[ind]["Bloom's Taxonomy Level"]=COBTL];
         if(D==0 || D==-1){
             i["Remark"]="Matches Expected Blooms Level"
             LR++;
@@ -297,7 +294,6 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
     let CO_Data=[]
     // C3
     dataArray.map(item=>{
-        console.log(item[1].score,CO_Map[item[0]])
         CO_Data.push({expected:item[1].score,actual:CO_Map[item[0]]})
         let diff=(item[1].score-CO_Map[item[0]])/item[1].score;
         
@@ -318,7 +314,7 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
     // console.log(lowestLevel,QPLow,QPHigh,QP_Final,QP,P_Final,PF_Percentage,FinalScore)
     // console.log(C1,C2,C3)
     // console.log(dataArray,pre_data,BT_Weights,CO_Map)
-    console.log(ModuleWeights,BT_Data,CO_Data)
+    // console.log(ModuleWeights,BT_Data,CO_Data)
     return {
         QuestionData:SequenceData,
         ModuleData:ModuleWeights,
