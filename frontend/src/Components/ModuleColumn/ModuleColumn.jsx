@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import classes from './ModuleColumn.module.css'
-
+import AddIcon from '@mui/icons-material/Add';
+import CancelIcon from '@mui/icons-material/Cancel';
 const ModuleColumn = ({id,last,Add,Remove,Update,fieldHours}) => {
   const [fHours,setFHours]=useState(fieldHours);
   console.log(last)
@@ -13,9 +14,13 @@ const ModuleColumn = ({id,last,Add,Remove,Update,fieldHours}) => {
         }} type='text' required/>
         </div>
         {last?
-        <div onClick={()=>{Add()}} className={classes.SeqColumn_AddMore}>+</div>:null}
+        <div onClick={()=>{Add()}} className={classes.SeqColumn_AddMore}>
+          <AddIcon />
+        </div>:null}
         {last && id!=1?
-        <div onClick={()=>{Remove()}} className={classes.SeqColumn_Remove}>x</div>:null}
+        <div onClick={()=>{Remove()}} className={classes.SeqColumn_Remove}>
+          <CancelIcon/>
+        </div>:null}
     </div>
   )
 }

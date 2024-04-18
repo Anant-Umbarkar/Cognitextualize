@@ -14,9 +14,9 @@ export default function MainPage() {
         <div className="container h-100 d-flex justify-content-center text-white">
           <div className="jumbotron my-auto">
             <h1 className="display-3">Question Paper Quality Analyzing Tool</h1>
-       <a href="#next">
         <button className="btn btn-success pm-2 fs-4">Start Using
        </button>
+       <a href="#next">
        <button className="btn btn-success pm-2 fs-4 rounded m-2"> 
        <ArrowForwardIosIcon  />
        </button>

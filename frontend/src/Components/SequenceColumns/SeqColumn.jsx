@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import classes from './SeqColumn.module.css'
+import AddIcon from '@mui/icons-material/Add';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const SeqColumn = ({id,denotedBy,fieldType,last,Add,Remove,Update,FieldTitle}) => {
   const [ftype,setFtype]=useState(fieldType);
@@ -48,9 +50,13 @@ const SeqColumn = ({id,denotedBy,fieldType,last,Add,Remove,Update,FieldTitle}) =
         </div>
         :null}
         {last?
-        <div onClick={()=>{Add()}} className={classes.SeqColumn_AddMore}>+</div>:null}
+        <div onClick={()=>{Add()}} className={classes.SeqColumn_AddMore}>
+          <AddIcon />
+        </div>:null}
         {last && id!=1?
-        <div onClick={()=>{Remove()}} className={classes.SeqColumn_Remove}>x</div>:null}
+        <div onClick={()=>{Remove()}} className={classes.SeqColumn_Remove}>
+          <CancelIcon />
+        </div>:null}
     </div>
   )
 }

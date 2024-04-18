@@ -21,7 +21,7 @@ const UploadFileBtn = ({setfile}) => {
   return (<div
     className="d-flex align-items-center justify-content-center mt-4 p-4"
     style={{
-        backgroundImage: "url('https://images.unsplash.com/photo-1510906594845-bc082582c8cc?q=80&w=2044&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+        backgroundImage: "url('https://img.freepik.com/free-vector/white-abstract-background_23-2148844576.jpg?w=996&t=st=1713423045~exp=1713423645~hmac=3aec548de81f70ec1c2c12fbfc2c7213fbbe446e37be00856a169df54ee83c8e')",
         backgroundSize: "cover",
     }}
 >

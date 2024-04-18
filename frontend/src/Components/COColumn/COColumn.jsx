@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import classes from './COColumn.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { FormActions } from '../../store/store';
-
+import AddIcon from '@mui/icons-material/Add';
+import CancelIcon from '@mui/icons-material/Cancel';
 const COColumn = ({id,last,Add,Remove,Update,w8}) => {
   const [weight,setWeight]=useState(w8);
   const [BTType,setBTType]=useState();
@@ -42,9 +43,13 @@ const COColumn = ({id,last,Add,Remove,Update,w8}) => {
         </div>
 
         {last?
-        <div onClick={()=>{Add()}} className={classes.SeqColumn_AddMore}>+</div>:null}
+        <div onClick={()=>{Add()}} className={classes.SeqColumn_AddMore}>
+          <AddIcon/>
+        </div>:null}
         {last && id!=1?
-        <div onClick={()=>{Remove()}} className={classes.SeqColumn_Remove}>x</div>:null}
+        <div onClick={()=>{Remove()}} className={classes.SeqColumn_Remove}>
+          <CancelIcon/>
+        </div>:null}
     </div>
   )
 }
