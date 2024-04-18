@@ -6,7 +6,6 @@ const csv = require('csv-parser');
 const xlsx = require('xlsx');
 const Tesseract = require('tesseract.js');
 
-
 async function convertPDFToText(inputFilePath, outputTextFilePath) {
     const dataBuffer = fs.readFileSync(inputFilePath);
     const data = await pdf(dataBuffer);
