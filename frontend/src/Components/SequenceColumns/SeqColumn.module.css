@@ -1,4 +1,6 @@
 .SeqColumn{
+    width: 20em; /* You can adjust this value to set a fixed width for each column */
+    height: 15em;
     padding: 1em;
     border: 3px solid rgb(239 239 239);
     border-radius: 10px;
@@ -7,7 +9,8 @@
     align-items: center;
     justify-content: flex-start;
     position: relative;
-    min-width: 20em;
+    /* Remove min-width property if using fixed width */
+    /* min-width: 20em; */
     min-height: 10em;
     margin: 1em;
 }
