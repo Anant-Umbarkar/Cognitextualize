@@ -59,18 +59,22 @@ const Sequence = () => {
             return newColumns;
         });
     }
+    const bgImageStyle = {
+        backgroundImage: 'url(https://images.unsplash.com/photo-1510906594845-bc082582c8cc?q=80&w=2044&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)',
+        backgroundSize: 'cover', 
+      };
     
-    
-  return (
-    <>
-    <h2>Sequence Info</h2>
-    <div className={classes.Sequence} ref={containerRef}>
-        <div className={classes.Sequence_InnerContainer}>
+  return (<div className='mt-4 text-white p-3' style={bgImageStyle} >
+  <div className="container-fluid  d-flex align-items-center justify-content-center">
+<h1 >Sequence Info</h1>
+</div>
+    <div className={classes.Sequence} ref={containerRef} >
+        <div className='${classes.Sequence_InnerContainer} d-flex align-items-center justify-content-center text-white'>
             {columns[0]!=null ? 
             columns.map(item=><SeqColumn key={item.id} Update={updateColumn} Remove={RemoveColumn} Add={AddColumn} last={item.id==columns.length} id={item.id} FieldTitle={item.FieldTitle} fieldType={item.FieldType} denotedBy={item.DenotedBy}/>):null}
         </div>
     </div>
-    </>
+    </div>
   )
 }
 

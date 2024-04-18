@@ -8,6 +8,9 @@ import Form from '../../Components/Form/Form';
 import Module from '../../Components/Module/Module';
 import CO from '../../Components/CO/CO';
 import ModuleResult from '../../Components/ModuleResult/ModuleResult';
+import Navbar from '../../Components/Navbar/Navbar';
+import MainPage from '../../Components/MainPage/MainPage';
+import Footer from '../../Components/Footer/Footer';
 
 let data={
   "QuestionData": [
@@ -323,13 +326,16 @@ const Home = () => {
 
   return (
     <div>
-      <h2>General Info</h2>
-      <Form/>
+      <div className='sticky-top'>
+      <Navbar/>
+      </div>
+      <MainPage/>
+      <Form id="formm"/>
       <CO/>
       <Module/>
       <Sequence/>
       <UploadFileBtn setfile={setfile} />
-      
+      <Footer/>
       {tableData.data.QuestionData!=undefined?
       <>
         <StickyHeadTable data={tableData.data.QuestionData} columns={tableData.columns}/>

@@ -104,11 +104,17 @@ const Form = () => {
       return newForm;
     });
   };
-  
+  const bgImageStyle = {
+    backgroundImage: 'url(https://images.unsplash.com/photo-1510906594845-bc082582c8cc?q=80&w=2044&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)',
+    backgroundSize: 'cover', 
+  };
 
 
-  return (<>
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+  return (<div className='mt-4 text-white p-3'style={bgImageStyle} >
+      <div className="container-fluid  d-flex align-items-center justify-content-center">
+    <h1 className=''>Enter Details</h1>
+  </div>
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems:'center', justifyContent:'center'}}>
         {field.map(item=>
             <TextField
             key={item.id}
@@ -116,11 +122,11 @@ const Form = () => {
             name={item.name}
             onChange={(e) => handleChange(e, item.label)}
             required
-            style={{ margin: '8px', flexBasis: 'calc(25% - 16px)' }}
+            style={{ margin: '8px', flexBasis: 'calc(25% - 16px)', background:'white'  }}
           />
         )}
     </div>
-    </>
+    </div>
   );
 };
 

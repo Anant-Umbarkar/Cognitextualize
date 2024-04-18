@@ -55,18 +55,23 @@ const CO = () => {
             return newColumns;
         });
     }
+    const bgImageStyle = {
+        backgroundImage: 'url(https://images.unsplash.com/photo-1510906594845-bc082582c8cc?q=80&w=2044&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)',
+        backgroundSize: 'cover', 
+      };
     
-    
-  return (
-    <>
-    <h2>CO Info</h2>
-    <div className={classes.CO} ref={containerRef}>
-        <div className={classes.Sequence_InnerContainer}>
+  return (<div className='mt-4 p-3' style={bgImageStyle} >
+  <div className="container-fluid  d-flex align-items-center justify-content-center">
+<h1 className='text-white'>Course Outcome(CO)</h1>
+</div>
+    <div className={classes.CO} ref={containerRef} >
+        <div className='${classes.Sequence_InnerContainer} text-white'>
             {columns[0]!=null ? 
-            columns.map(item=><COColumn key={item.id} Update={updateColumn} Remove={RemoveColumn} Add={AddColumn} last={item.id==columns.length} id={item.id} w8={0}/>):null}
+            columns.map(item=><COColumn  key={item.id} Update={updateColumn} Remove={RemoveColumn} Add={AddColumn} last={item.id==columns.length} id={item.id} w8={0}/>):null}
         </div>
     </div>
-    </>
+    <div/>
+    </div>
   )
 }
 
