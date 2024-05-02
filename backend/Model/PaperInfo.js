@@ -10,7 +10,6 @@ const PaperSchema = new mongoose.Schema({
   "Course Teacher": { type: String, required: true },
   "No. Of Questions": { type: String, required: true },
   "Total Marks": { type: String, required: true },
-  "Time in Hrs": { type: String, required: true },
   "Sequence": [],
   "Collected Data":[],
 }); 

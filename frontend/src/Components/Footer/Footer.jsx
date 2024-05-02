@@ -11,7 +11,7 @@ export default function Footer() {
           className="footer-title fs-4 fw-bold"
           style={{ marginBottom: "10px" }}
         >
-          Cognitexualise: Unleashing Feedback Innovation through Question Paper
+          Cognitexualize: Unleashing Feedback Innovation through Question Paper
           Analysis
         </h1>
         <div className="footer-contributors mt-4">
@@ -84,6 +84,8 @@ export default function Footer() {
             </ul>
           </div>
         </div>
+        <p>Under the guidance of <b>Dr. A.J.Umbarkar</b></p>
+        <p>Copyright&#169;Cognitextualize 2023-24 All Rights Reserved</p>
       </div>
     </div>
   );
