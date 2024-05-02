@@ -341,7 +341,7 @@ const Home = () => {
         <ModuleResult moduleData={tableData.data.ModuleData} label={"Module"}/>
         <ModuleResult moduleData={tableData.data.BloomsData} label={"Blooms"}/>
         <ModuleResult moduleData={tableData.data.COData} label={"CO"}/>
-        <h2 style={{"textAlign":"left"}}>Final Score In Percentage: {tableData.data.FinalScore}</h2>
+        <h2 style={{"textAlign":"left",margin:2+"em"}}>Final Score In Percentage: {tableData.data.FinalScore}</h2>
       </>
       :null}
       <Footer/>
