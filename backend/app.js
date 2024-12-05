@@ -60,7 +60,7 @@ db.once('open', () => {
     res.locals.error = req.app.get('env') === 'development' ? err : {};
   
     // Render the error page with a title
-    res.status(err.status || 500);
+    res.status(err.message || 500);
     res.render('error', {
       title: 'Error', // Provide a title for the error page
       message: err.message,
