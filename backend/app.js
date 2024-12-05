@@ -13,6 +13,16 @@ var app = express();
 
 let PORT = process.env.PORT || 80;
 
+const corsOptions = {
+  origin: ['https://cognitextualize-dh07a07sj-utkarshmhubs-projects.vercel.app', 'https://cognitextualize.vercel.app'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors());
+
+
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://UtMandape:1BGR3QO2fcFmFHXw@cluster0.akibk.mongodb.net/CogniTextualize?retryWrites=true&w=majority');
 
@@ -29,7 +39,6 @@ db.once('open', () => {
   app.set('views', path.join(__dirname, 'views'));
   app.set('view engine', 'jade');
 
-  app.use(cors());
   app.use(logger('dev'));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
