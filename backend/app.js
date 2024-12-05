@@ -49,24 +49,24 @@ db.once('open', () => {
   app.use('/users', usersRouter);
 
   // catch 404 and forward to error handler
-  app.use(function (req, res, next) {
-    next(createError(404));
-  });
+  // app.use(function (req, res, next) {
+  //   next(createError(404));
+  // });
 
   // error handler
-  app.use(function (err, req, res, next) {
-    // Set locals, providing error details only in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
+  // app.use(function (err, req, res, next) {
+  //   // Set locals, providing error details only in development
+  //   res.locals.message = err.message;
+  //   res.locals.error = req.app.get('env') === 'development' ? err : {};
   
-    // Render the error page with a title
-    res.status(err.message || 500);
-    res.render('error', {
-      title: 'Error', // Provide a title for the error page
-      message: err.message,
-      error: err,
-    });
-  });
+  //   // Render the error page with a title
+  //   res.status(err.message || 500);
+  //   res.render('error', {
+  //     title: 'Error', // Provide a title for the error page
+  //     message: err.message,
+  //     error: err,
+  //   });
+  // });
   
 
   app.listen(PORT, () => {
