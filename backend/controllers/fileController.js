@@ -6,6 +6,7 @@ const { createObjectCsvWriter } = require("csv-writer");
 const XLSX = require("xlsx");
 const fileConverter = require('../core/FileToText/Converter');
 const { Evaluate } = require("../core/evaluate/evaluate");
+const fs=require("fs");
 
 exports.convertToText = async (req, res) => {
     if (!req.file) {
@@ -43,7 +44,19 @@ exports.convertToText = async (req, res) => {
                 return;
         }
 
-        const data = await saveToDB(req.body.Sequence, req.body.FormData, outputFilePath,req.body.ModuleInfo,req.body.COPref);
+        const data = await saveToDB(req.body.Sequence, req.body.FormData, outputFilePath, req.body.ModuleInfo, req.body.COPref);
+
+        // Delete the uploaded file and the converted output file
+        fs.unlink(req.file.path, (err) => {
+            if (err) console.error(`Error deleting uploaded file: ${err.message}`);
+            else console.log("Uploaded file deleted successfully.");
+        });
+
+        fs.unlink(outputFilePath, (err) => {
+            if (err) console.error(`Error deleting output file: ${err.message}`);
+            else console.log("Output file deleted successfully.");
+        });
+
         res.send(data);
     } catch (error) {
         console.error('Error converting file or saving to DB:', error);
@@ -66,25 +79,27 @@ const saveToDB = async (Sequence, FormData, outputFilePath,ModuleInfo,COPref) =>
         // Evaluate
         let result=Evaluate(parsedFormData,structurizedData,sequence,pre_data,moduleInfo)
 
+
+
         // SAVE TO CSV
         
-        const csvFilePath = path.join(__dirname, '../Result', `${parsedFormData["College Name"]}_${timestamp}.csv`);
-        const csvWriter = createObjectCsvWriter({
-            path: csvFilePath,
-            header: Object.keys(structurizedData[0]).map(key => ({ id: key, title: key })),
-        });
-        await csvWriter.writeRecords(structurizedData);
-        console.log('CSV file written successfully');
+        // const csvFilePath = path.join(__dirname, '../Result', `${parsedFormData["College Name"]}_${timestamp}.csv`);
+        // const csvWriter = createObjectCsvWriter({
+        //     path: csvFilePath,
+        //     header: Object.keys(structurizedData[0]).map(key => ({ id: key, title: key })),
+        // });
+        // await csvWriter.writeRecords(structurizedData);
+        // console.log('CSV file written successfully');
 
 
         // SAVE TO XLSX
 
-        const xlsxFilePath = path.join(__dirname, '../Result', `${parsedFormData["College Name"]}_${timestamp}.xlsx`);
-        const ws = XLSX.utils.json_to_sheet(structurizedData);
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
-        XLSX.writeFile(wb, xlsxFilePath);
-        console.log('XLSX file written successfully');
+        // const xlsxFilePath = path.join(__dirname, '../Result', `${parsedFormData["College Name"]}_${timestamp}.xlsx`);
+        // const ws = XLSX.utils.json_to_sheet(structurizedData);
+        // const wb = XLSX.utils.book_new();
+        // XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
+        // XLSX.writeFile(wb, xlsxFilePath);
+        // console.log('XLSX file written successfully');
 
         const paper = new PaperInfo({
             "College Name": parsedFormData["College Name"],

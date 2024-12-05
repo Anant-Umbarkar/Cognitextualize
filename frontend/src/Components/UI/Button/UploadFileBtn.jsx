@@ -20,10 +20,6 @@ const UploadFileBtn = ({setfile}) => {
     }
   return (<div
     className="d-flex align-items-center justify-content-center mt-4 p-4"
-    style={{
-        backgroundImage: "url('https://img.freepik.com/free-vector/white-abstract-background_23-2148844576.jpg?w=996&t=st=1713423045~exp=1713423645~hmac=3aec548de81f70ec1c2c12fbfc2c7213fbbe446e37be00856a169df54ee83c8e')",
-        backgroundSize: "cover",
-    }}
 >
     {/* Hidden file input */}
     <input

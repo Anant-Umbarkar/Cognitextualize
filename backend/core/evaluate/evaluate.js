@@ -1,16 +1,3 @@
-// weights in percentage
-let BT_Weights={
-    1:{ level: 0, weights: 0,marks:0,BT_penalty:0, No_Of_Questions:0 },
-    2:{ level: 0, weights: 0,marks:0,BT_penalty:0, No_Of_Questions:0 },
-    3:{ level: 0, weights: 0,marks:0,BT_penalty:0, No_Of_Questions:0 },
-    4:{ level: 0, weights: 0,marks:0,BT_penalty:0, No_Of_Questions:0 },
-    5:{ level: 0, weights: 0,marks:0,BT_penalty:0, No_Of_Questions:0 },
-    6:{ level: 0, weights: 0,marks:0,BT_penalty:0, No_Of_Questions:0 }, 
-};
-
-let ModuleWeights=[];
-
-
 const { FindBloomLevelsInText } = require("../Regex/Regex")
 
 function Normalize(seqData){
@@ -33,6 +20,21 @@ function Normalize(seqData){
 }
 
 exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
+
+    // weights in percentage
+    let BT_Weights={
+        1:{ level: 0, weights: 0,marks:0,BT_penalty:0, No_Of_Questions:0 },
+        2:{ level: 0, weights: 0,marks:0,BT_penalty:0, No_Of_Questions:0 },
+        3:{ level: 0, weights: 0,marks:0,BT_penalty:0, No_Of_Questions:0 },
+        4:{ level: 0, weights: 0,marks:0,BT_penalty:0, No_Of_Questions:0 },
+        5:{ level: 0, weights: 0,marks:0,BT_penalty:0, No_Of_Questions:0 },
+        6:{ level: 0, weights: 0,marks:0,BT_penalty:0, No_Of_Questions:0 }, 
+    };
+
+    let ModuleWeights=[];
+
+    
+
 
     // Convert object to array of [key, value] pairs
     let dataArray = Object.entries(pre_data);
@@ -80,8 +82,10 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
             marks:0,
             BT_penalty:0,
             No_Of_Questions:0,
-        };;
+        };
     });
+
+    console.log(BT_Weights);
 
     // Set level to length of pre_data + 1 for any levels that were not present in pre_data
     let lowestLevel=Object.keys(pre_data).length + 1;
@@ -320,6 +324,7 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
         ModuleData:ModuleWeights,
         BloomsData:BT_Data,
         COData:CO_Data,
-        FinalScore:FinalScore
+        FinalScore:FinalScore,
+        updatedBloom: BT_Weights
     }
 }   

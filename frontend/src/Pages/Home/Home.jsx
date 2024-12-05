@@ -11,8 +11,14 @@ import ModuleResult from '../../Components/ModuleResult/ModuleResult';
 import Navbar from '../../Components/Navbar/Navbar';
 import MainPage from '../../Components/MainPage/MainPage';
 import Footer from '../../Components/Footer/Footer';
+import GradientProgress from '../../Components/UI/ProgressBar/GradientProgress';
+import BloomTaxonomyTriangle from '../../Components/UI/Triangle/BloomTaxonomyTriangle';
+import './Home.css';
+import QuestionResults from '../../Components/Question_Results/QuestionResults';
+import PieChartModule from '../../Components/UI/Pie_chart/PieChartModule';
+import Wrapper from '../../Components/UI/wrapper/Wrapper';
 
-let data={
+let Dummydata={
   "QuestionData": [
       {
           "Question Type": "Obj",
@@ -191,11 +197,212 @@ let data={
   ]
 }
 
+let dummyBloomSeq={
+  '1': {
+    level: 1,
+    weights: 50,
+    marks: 0,
+    BT_penalty: 0,
+    No_Of_Questions: 0
+  },
+  '2': {
+    level: 2,
+    weights: 30,
+    marks: 0,
+    BT_penalty: 0,
+    No_Of_Questions: 0
+  },
+  '3': {
+    level: 3,
+    weights: 20,
+    marks: 0,
+    BT_penalty: 0,
+    No_Of_Questions: 0
+  },
+  '4': { level: 0, weights: 0, marks: 0, BT_penalty: 0, No_Of_Questions: 0 },
+  '5': { level: 0, weights: 0, marks: 0, BT_penalty: 0, No_Of_Questions: 0 },
+  '6': { level: 0, weights: 0, marks: 0, BT_penalty: 0, No_Of_Questions: 0 }
+};
+
+let dummySeq=[
+  {
+      "id": 1,
+      "FieldTitle": "Question Type",
+      "FieldType": "QT",
+      "DenotedBy": "An-M Desc An-S Obj"
+  },
+  {
+      "id": 2,
+      "FieldTitle": "QN",
+      "FieldType": "QN",
+      "DenotedBy": "Q"
+  },
+  {
+      "id": 3,
+      "FieldTitle": "SubQN",
+      "FieldType": "QN",
+      "DenotedBy": "A"
+  },
+  {
+      "id": 4,
+      "FieldTitle": "Q",
+      "FieldType": "Q",
+      "DenotedBy": "Def"
+  },
+  {
+      "id": 5,
+      "FieldTitle": "M",
+      "FieldType": "Mrk",
+      "DenotedBy": "Def"
+  },
+  {
+      "id": 6,
+      "FieldTitle": "CO",
+      "FieldType": "CO",
+      "DenotedBy": "Def"
+  },
+  {
+      "id": 7,
+      "FieldTitle": "Module",
+      "FieldType": "MO",
+      "DenotedBy": "Def"
+  }
+];
+
+const COINFO_dummy=[
+  {
+      "id": 1,
+      "score": "5",
+      "level": "1"
+  },
+  {
+      "id": 2,
+      "score": "3",
+      "level": "2"
+  },
+  {
+      "id": 3,
+      "score": "2",
+      "level": "3"
+  }
+];
+
+const GetLevel=(coString)=>{
+  let CO_int= parseInt(coString.replace("CO", ""), 10);
+  let found=COINFO_dummy.find(item=>item.id==CO_int);
+  // console.log(coString,found.level)
+  return parseInt(found.level,10);
+}
+
+const transformModuleData = (data, type, labels) => {
+  // Create a new array by mapping over the data
+  // console.log(data)
+  return data.map((item, index) => ({
+    label: `${labels} ${index + 1}`, // Append the index (starting from 1) to the label
+    value: item[type]      // Use either 'expected' or 'actual' based on the 'type' argument
+  }));
+  return [];
+};
+
+let analysisColumns=[
+  {
+    id:1,
+    label:"Name",
+    align:"center",
+    minWidth: 30,
+  },
+  {
+    id:2,
+    label:"Actual",
+    align:"center",
+    minWidth: 30,
+  },
+  {
+    id:3,
+    label:"Expected",
+    align:"center",
+    minWidth: 30,
+  },
+];
+
 const Home = () => {
   // file state
   const [file, setfile] = useState(null);
   const [tableData,setTableData]=useState({data:[],columns:[]});
+  const [Overall,setOverall]=useState({CO:{},Bloom:{},Module:{}});
+  const [moduleImprove,setModuleImprove]=useState([]);
+  const [BloomImprove,setBloomImprove]=useState([]);
+  const [COImprove,setCOImprove]=useState([]);
   const state=useSelector(state=>state);
+
+  // console.log(state) 
+
+  // useEffect(()=>{
+
+  //   let actualModuleData=transformModuleData(tableData.data.ModuleData,"actual","Module");
+  //   let expectedModuleData=transformModuleData(tableData.data.ModuleData,"expected","Module");
+
+  //   let actualCOData=transformModuleData(tableData.data.COData,"actual","CO");
+  //   let expectedCOData=transformModuleData(tableData.data.COData,"expected","CO");
+
+  //   let actualBloomData=transformModuleData(tableData.data.BloomsData,"actual","Bloom");
+  //   let expectedBloomData=transformModuleData(tableData.data.BloomsData,"expected","Bloom");
+
+  //   let overallData={
+  //     CO:{
+  //       actual:actualCOData,
+  //       expected:expectedCOData
+  //     },
+  //     Bloom:{
+  //       actual:actualBloomData,
+  //       expected:expectedBloomData
+  //     },
+  //     Module:{
+  //       actual:actualModuleData,
+  //       expected:expectedModuleData
+  //     }
+  //   };
+
+  //   let improve=[];
+
+  //   for(let i=0;i<actualModuleData.length;i++){
+  //     if((actualModuleData[i].value-expectedModuleData[i].value)<0){
+  //       improve.push(actualModuleData[i].label);
+  //     }
+  //   }
+
+  //   setModuleImprove(improve);
+
+  //   improve=[];
+  //   for(let i=0;i<actualBloomData.length;i++){
+  //     if((actualBloomData[i].value-expectedBloomData[i].value)<0){
+  //       improve.push(actualBloomData[i].label);
+  //     }
+  //   }
+
+  //   setBloomImprove(improve);
+
+  //   improve=[];
+  //   for(let i=0;i<actualCOData.length;i++){
+  //     console.log(actualCOData[i].label,(actualCOData[i].value-expectedCOData[i].value),actualCOData[i].value,expectedCOData[i].value)
+  //     if((actualCOData[i].value-expectedCOData[i].value)<0){
+  //       improve.push(actualCOData[i].label);
+  //     }
+  //   }
+
+  //   setCOImprove(improve);  
+
+  //   improve=[];
+
+  //   setOverall(overallData);
+  // },[tableData])
+
+  
+
+  
+
+
+  // UNCOMMENT THIS PART
 
   useEffect(() => {
     let sequence=state.Sequence;
@@ -261,6 +468,8 @@ const Home = () => {
       //     }
       //   });
 
+    
+
 
 
       axios.post(import.meta.env.VITE_BACKEND_URL + "/totext/",FileData, {
@@ -294,6 +503,63 @@ const Home = () => {
         );
         
         setTableData({columns:ColumnData,data:data.data});
+
+        let actualModuleData=transformModuleData(data.data.ModuleData,"actual","Module");
+        let expectedModuleData=transformModuleData(data.data.ModuleData,"expected","Module");
+
+        let actualCOData=transformModuleData(data.data.COData,"actual","CO");
+        let expectedCOData=transformModuleData(data.data.COData,"expected","CO");
+
+        let actualBloomData=transformModuleData(data.data.BloomsData,"actual","Bloom");
+        let expectedBloomData=transformModuleData(data.data.BloomsData,"expected","Bloom");
+
+        let overallData={
+          CO:{
+            actual:actualCOData,
+            expected:expectedCOData
+          },
+          Bloom:{
+            actual:actualBloomData,
+            expected:expectedBloomData
+          },
+          Module:{
+            actual:actualModuleData,
+            expected:expectedModuleData
+          }
+        };
+
+        let improve=[];
+        console.log(state.ModuleInfo)
+        for(let i=0;i<actualModuleData.length && i<state.ModuleInfo.length;i++){
+          if((actualModuleData[i].value-expectedModuleData[i].value)<0){
+            improve.push(actualModuleData[i].label);
+          }
+        }
+
+        setModuleImprove(improve);
+
+        improve=[];
+        for(let i=0;i<actualBloomData.length;i++){
+          if((actualBloomData[i].value-expectedBloomData[i].value)<0){
+            improve.push(actualBloomData[i].label);
+          }
+        }
+
+        setBloomImprove(improve);
+
+        improve=[];
+        for(let i=0;i<actualCOData.length;i++){
+          console.log(actualCOData[i].label,(actualCOData[i].value-expectedCOData[i].value),actualCOData[i].value,expectedCOData[i].value)
+          if((actualCOData[i].value-expectedCOData[i].value)<0){
+            improve.push(actualCOData[i].label);
+          }
+        }
+
+        setCOImprove(improve);  
+
+        improve=[];
+
+        setOverall(overallData);
         console.log(data);
       })
 
@@ -327,23 +593,110 @@ const Home = () => {
   return (
     <div>
       <div className='sticky-top'>
-      <Navbar/>
       </div>
       <MainPage/>
       <Form id="formm"/>
+      {/* <div style={{width:"100%",margin:"1em auto", display:"flex",justifyContent:"center",gap:"1em"}}>
+        <p><b>Select Syllabus<span style={{color:"red"}}>*</span>: </b></p>
+        <input type='file'/>
+      </div> */}
       <CO/>
       <Module/>
       <Sequence/>
       <UploadFileBtn setfile={setfile} />
-      {tableData.data.QuestionData!=undefined?
+
+
+        {/* RESULT */}
+
+      
+
+      <Wrapper mode={"dark"}>
+        <div style={{width:"100%",textAlign:"center",margin:"1em 0"}}>
+          <h1 style={{fontWeight:"800"}}>Result</h1>
+        </div>
+      </Wrapper>
+      
+      {tableData.data.QuestionData != undefined ?
       <>
-        <StickyHeadTable data={tableData.data.QuestionData} columns={tableData.columns}/>
-        <ModuleResult moduleData={tableData.data.ModuleData} label={"Module"}/>
-        <ModuleResult moduleData={tableData.data.BloomsData} label={"Blooms"}/>
-        <ModuleResult moduleData={tableData.data.COData} label={"CO"}/>
-        <h2 style={{"textAlign":"left",margin:2+"em"}}>Final Score In Percentage: {tableData.data.FinalScore}</h2>
+        <Wrapper mode={"dark"}>
+        {/* <h1>Question wise analysis:</h1> */}
+        <br></br>
+        </Wrapper>  
+        {tableData.data.QuestionData.map((item, index) => (
+          <Wrapper mode="dark" key={index}>
+            <h3 style={{marginLeft:"1.5em"}}><b>Question {index+1}:</b></h3>
+            <StickyHeadTable data={[item]} columns={tableData.columns}/>
+            <br></br>
+            <h3 style={{ marginLeft: '3em' }}>Analysis:</h3>
+            <br></br>
+            <div className="bloom-taxonomy-container">
+              <BloomTaxonomyTriangle data={tableData.data.updatedBloom} label={"Course Outcome Bloom's Taxonomy Level"} highlightedLevel={GetLevel(item.CO)} />
+              <BloomTaxonomyTriangle data={tableData.data.updatedBloom} label={"Question's Bloom's Taxonomy Level"} highlightedLevel={parseInt(item["Bloom's Taxonomy Level"],10)} />
+            </div>
+            <QuestionResults dummyBloomSeq={tableData.data.updatedBloom} actualLevel={parseInt(item["Bloom's Taxonomy Level"],10)} expectedLevel={GetLevel(item.CO)} />
+            <hr></hr>
+            <br></br>
+            <br></br>
+          </Wrapper>
+        ))}
+        {/* <StickyHeadTable data={tableData.data.QuestionData} columns={tableData.columns}/> */}
+
+        <Wrapper>
+        <h2 style={{margin:"1em 2em",fontWeight:"500"}}>Module wise results:</h2>
+        <div 
+          style={{width:"100%",margin:"1em auto", display:"flex",justifyContent:"center",gap:"1em"}}>
+          <PieChartModule chartLabel={"Expected"} data={Overall.Module.expected}/>
+          <PieChartModule chartLabel={"Found"} data={Overall.Module.actual}/>
+          
+        </div>
+        {moduleImprove.length>0?<>
+          <h4 style={{margin:"0 auto", backgroundColor:"#ff000070",width:"fit-content",padding:"0.5em",borderBottom: "5px solid red"}}>Increase the marks distribution for: {moduleImprove.map(item=>{
+            return <>{item}, </>;
+          })}</h4>
+          
+          </>:null}
+
+        <h2 style={{margin:"1em 2em",fontWeight:"500"}}>Course Outcome wise results:</h2>
+        <div 
+          style={{width:"100%",margin:"1em auto", display:"flex",justifyContent:"center",gap:"1em"}}>
+          <PieChartModule chartLabel={"Expected"} data={Overall.CO.expected}/>
+          <PieChartModule chartLabel={"Found"} data={Overall.CO.actual}/>
+        
+        </div>
+        {COImprove.length>0?<>
+          <h4 style={{margin:"0 auto", backgroundColor:"#ff000070",width:"fit-content",padding:"0.5em",borderBottom: "5px solid red"}}>Increase the marks distribution for: {COImprove.map(item=>{
+            return <>{item}, </>;
+          })}</h4>
+          
+          </>:null}
+
+
+        <h2 style={{margin:"1em 2em",fontWeight:"500"}}>Bloom wise results:</h2>
+        <div
+          style={{width:"100%",margin:"1em auto", display:"flex",justifyContent:"center",gap:"1em"}}>
+          <PieChartModule chartLabel={"Expected"} data={Overall.Bloom.expected}/>
+          <PieChartModule chartLabel={"Found"} data={Overall.Bloom.actual}/>
+        
+        </div>
+        {BloomImprove.length>0?<>
+          <h4 style={{margin:"0 auto", backgroundColor:"#ff000070",width:"fit-content",padding:"0.5em",borderBottom: "5px solid red"}}>Increase the marks distribution for: {BloomImprove.map(item=>{
+            return <>{item}, </>;
+          })}</h4>
+          
+          </>:null}
+
+          <GradientProgress title="Final Score In Percentage" expected={100} actual={tableData.data.FinalScore}/>
+          </Wrapper>
+
+        {/* <ModuleResult moduleData={tableData.data.ModuleData} label={"Module"}/> */}
+        {/* <ModuleResult moduleData={tableData.data.BloomsData} label={"Blooms"}/> */}
+        {/* <ModuleResult moduleData={tableData.data.COData} label={"CO"}/> */}
+        {/* {overallData.CO.actual!=undefined?<GradientProgress title="Final Score In Percentage" actual={Overall.CO.actual}/>:null} */}
+        
       </>
       :null}
+
+
       <Footer/>
     </div>
   )

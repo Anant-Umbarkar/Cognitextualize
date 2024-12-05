@@ -1,10 +1,20 @@
 import React from 'react'
 import classes from './ModuleResult.module.css'
+import GradientProgress from '../UI/ProgressBar/GradientProgress'
+import PieChart from '../UI/Pie_chart/PieChartModule';
 
 const ModuleResult = ({moduleData, label}) => {
+  if(label=="Module"){
+    moduleData.splice(6);
+  }
   return (
     <div className={classes.ModuleResult}>
-        <h2>{label} wise analysis:</h2>
+      <h2>{label} wise result</h2>
+      {moduleData.map((item,i)=>{
+                return <PieChart key={i}/> 
+                // return <GradientProgress title={label+" "+i} actual={item.actual} expected={item.expected}/> 
+            })}
+        {/* <h2>{label} wise analysis:</h2>
         <div className={classes.ModuleResult_columns}>
             <p>{label}</p>
             <p>Expected</p>
@@ -18,8 +28,8 @@ const ModuleResult = ({moduleData, label}) => {
                 <p>{parseInt(item.actual)}%</p>
                 </div>
             })}
-            
-        </div>
+             */}
+        {/* </div> */}
     </div>
   )
 }

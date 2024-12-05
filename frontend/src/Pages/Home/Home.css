@@ -1,0 +1,11 @@
+.bloom-taxonomy-container {
+    display: flex; /* Use Flexbox to arrange items in a row */
+    justify-content: center; /* Center the triangles horizontally */
+    gap: 1em; /* Add some space between the triangles */
+  }
+  
+  /* Optional: Style the individual triangles if needed */
+  .bloom-taxonomy-container .bloom-taxonomy-triangle {
+    flex: 1; /* Allow triangles to grow and fill available space */
+  }
+  

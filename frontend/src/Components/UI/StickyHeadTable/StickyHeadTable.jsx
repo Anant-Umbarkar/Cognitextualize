@@ -115,7 +115,9 @@ import TableRow from '@mui/material/TableRow';
 //   }
 // ];
 
-const StickyHeadTable=({data,columns})=>{
+
+
+const StickyHeadTable=({data,columns,type="normal",negative=0})=>{
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -137,7 +139,7 @@ const StickyHeadTable=({data,columns})=>{
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth }}
+                  style={{ minWidth: column.minWidth, background:"#282828ad", color:"white" }}
                 >
                   {column.label}
                 </TableCell>
@@ -152,7 +154,7 @@ const StickyHeadTable=({data,columns})=>{
                     {columns.map((column) => {
                       const value = row[column.label];
                       return (
-                        <TableCell key={column.id} align={column.align}>
+                        <TableCell style={{background:(column.label=="Deviation")?(negative<0)?"#ff9494":"#96ff94":"white", color:(column.lebel=="Deviation" && negative<0)?"#ff0000":"black",fontWeight:(column.label=="Deviation")?"bold":"normal"}} key={column.id} align={column.align}>
                           {value}
                         </TableCell>
                       );

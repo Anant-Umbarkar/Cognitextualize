@@ -60,8 +60,8 @@ const CO = () => {
         backgroundSize: 'cover', 
       };
     
-  return (<div className='mt-4 p-3' style={bgImageStyle} >
-  <div className="container-fluid  d-flex align-items-center justify-content-center">
+  return (<div className='mt-4 p-3' >
+  <div className="container-fluid  d-flex align-items-center justify-content-start">
 <h1 className=''>Course Outcome(CO)</h1>
 </div>
     <div className='${classes.CO}' ref={containerRef} >

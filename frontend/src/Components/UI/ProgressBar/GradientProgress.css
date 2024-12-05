@@ -1,0 +1,97 @@
+.progress-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px 0;
+}
+
+.progress-title {
+  margin: 0 0 25px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.progress-bar {
+  position: relative;
+  width: 100%;
+  height: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  overflow: visible;
+  border: 2px solid white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
+              0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.gradient-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #ff0000, #00ff00);
+  border-radius: 8px;
+}
+
+/* Label wrapper styles */
+.label-wrapper {
+  position: absolute;
+  transition: left 0.3s ease;
+  white-space: nowrap;
+}
+
+.label-wrapper-top {
+  bottom: 100%;
+  transform: translate(-50%, calc(50% + 52px));
+}
+
+.label-wrapper-bottom {
+  top: 100%;
+  transform: translate(-50%, calc(-50% - 15px));
+}
+
+/* Label bubble styles */
+.label-bubble {
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  position: relative;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.label-actual {
+  background: #333;
+}
+
+.label-expected {
+  background: #666;
+}
+
+/* Arrow styles */
+.label-bubble::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  transform: translateX(-50%);
+}
+
+/* Top label arrow */
+.label-expected::before {
+  top: 100%;
+  border-top: 6px solid #666;
+}
+
+/* Bottom label arrow */
+.label-actual::before {
+  bottom: 100%;
+  border-bottom: 6px solid #333;
+}
