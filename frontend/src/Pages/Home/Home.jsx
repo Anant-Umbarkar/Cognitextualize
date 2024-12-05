@@ -472,7 +472,7 @@ const Home = () => {
 
 
 
-      axios.post(import.meta.env.VITE_BACKEND_URL + "/totext/",FileData, {
+      axios.post("https://cognitextualize.vercel.app/totext/",FileData, {
         "Content-Type": "multipart/form-data"
       }).then(data => {
         let ColumnData=sequence.map(item=>{
