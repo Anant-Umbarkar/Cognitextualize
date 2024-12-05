@@ -1,6 +1,4 @@
-extends layout
-
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  h1 #{message || 'An Error Occurred'}
+  h2 #{error.status || 500}
+  pre #{error.stack || 'No stack trace available'}
