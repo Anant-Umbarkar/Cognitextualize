@@ -170,7 +170,7 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
         let co=parseInt(i.CO.match(/\d+/)[0]);
         let QHBTL=BT_Weights[i["Bloom's Taxonomy Level"]].level;
         let COBTL=BT_Weights[co].level;
-        let D=QHBTL-COBTL;
+        let D=COBTL-QHBTL;
         if(D==0 || D==-1){
             i["Remark"]="Matches Expected Blooms Level"
             LR++;
