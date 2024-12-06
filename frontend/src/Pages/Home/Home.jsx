@@ -472,7 +472,7 @@ const Home = () => {
 
 
 
-      axios.post("https://cognitextualize.onrender.com/totext/",FileData, {
+      axios.post("https://cognitextualize-9mqt.onrender.com/totext/",FileData, {
         "Content-Type": "multipart/form-data"
       }).then(data => {
         let ColumnData=sequence.map(item=>{
