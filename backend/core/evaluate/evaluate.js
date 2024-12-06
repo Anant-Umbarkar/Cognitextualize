@@ -171,18 +171,23 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
         let QHBTL=BT_Weights[i["Bloom's Taxonomy Level"]].level;
         let COBTL=BT_Weights[co].level;
         let D=COBTL-QHBTL;
+
         if(D==0 || D==-1){
-            i["Remark"]="Matches Expected Blooms Level"
             LR++;
         } else if(D<-1){
-            i["Remark"]="Higher then Expected Blooms Level"
             HR++;
         } else if(D>1){
-            i["Remark"]="Lower then Expected Blooms Level"
             HM++;
         } else if(D==1){
-            i["Remark"]="Lower then Expected Blooms Level"
             LM++;
+        }
+        
+        if(D==0){
+            i["Remark"]="Matches Expected Blooms Level"
+        } else if(D<0){
+            i["Remark"]="Higher than Expected Blooms Level"
+        } else if(D>0){
+            i["Remark"]="Lower than Expected Blooms Level"
         }
 
         QP=QP+(-LM-(2*HM)+LR+(2*HR));
