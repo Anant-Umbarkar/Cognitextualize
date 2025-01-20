@@ -158,7 +158,7 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
         
         CO_Map[co]=0;
         console.log("----------",i,i["Bloom's Taxonomy Level"],BT_Weights,i["Bloom's Taxonomy Level"],"---------------");
-        // BT_Map[BT_Weights[i["Bloom's Taxonomy Level"]].level]=0;
+        BT_Map[BT_Weights[i["Bloom's Taxonomy Level"]].level]=0;
     })
 
     let QP=0,C1=0,C2=0,C3=0,C4=0,penaltyCtr=0;
