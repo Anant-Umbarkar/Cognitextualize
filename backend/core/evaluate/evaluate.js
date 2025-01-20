@@ -157,7 +157,7 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
         let co=parseInt(i.CO.match(/\d+/)[0]);
         
         CO_Map[co]=0;
-        // console.log(BT_Weights,i["Bloom's Taxonomy Level"])
+        console.log(BT_Weights,i["Bloom's Taxonomy Level"])
         BT_Map[BT_Weights[i["Bloom's Taxonomy Level"]].level]=0;
     })
 
