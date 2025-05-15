@@ -85,7 +85,7 @@ import fs from "fs"
     }
     
     // Main function to analyze text for Bloom's taxonomy verbs
-    exports.FindBloomLevelsInText = (text) => {
+    export function FindBloomLevelsInText (text) {
         const words = text.split(/\W+/); // Split by word characters
         const wordResult = [];
         const levelResult = [];
@@ -122,7 +122,7 @@ import fs from "fs"
       
     
 
-    exports.GetRegex = (data) => {
+    export function GetRegex (data) {
         let RegexData = [];
         const regex = {
             "QN": {
@@ -198,7 +198,7 @@ import fs from "fs"
 
 
 // Question extraction module
-exports.QuestionData = (data, inputFile) => {
+export function QuestionData (data, inputFile) {
     const regexData = this.GetRegex(data);
     const text = fs.readFileSync(inputFile, 'utf8');
     const previousFieldPattern = new RegExp(regexData[0][1], 'g');
@@ -218,7 +218,7 @@ exports.QuestionData = (data, inputFile) => {
 };
 
 // Main processing function to structure question data
-exports.Structurize = (data, inputFile) => {
+export function Structurize (data, inputFile) {
     return new Promise((resolve, reject) => {
         try {
             const { questions, regexData } = this.QuestionData(data, inputFile);

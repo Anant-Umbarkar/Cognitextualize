@@ -11,7 +11,7 @@ import { csvToJson } from "../core/CSV_2_Json/program.js";
 
 
 // Function to handle file conversion and saving to database
-exports.convertToText = async (req, res) => {
+export async function convertToText (req, res) {
     // Check if a file is uploaded
     if (!req.file) {
         res.status(500).send("Error while uploading file");

@@ -22,7 +22,7 @@ function Normalize(seqData){
     return updatedData;
 }
 
-exports.Evaluate=(structurizedData,pre_data,Module_Hrs)=>{
+export function Evaluate(structurizedData,pre_data,Module_Hrs){
     
     let updated_structurizedData
 
