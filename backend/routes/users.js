@@ -1,8 +1,9 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
-const User = require('../Model/User');
-var router = express.Router();
+import express from 'express';
+import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
+import User from '../Model/User.js';
+
+const router = express.Router();
 
 const JWT_SECRET = 'Cognitextualize@123';
 

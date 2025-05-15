@@ -1,14 +1,15 @@
-var createError = require('http-errors'); // Module for handling HTTP errors
-var express = require('express'); // Express framework
-var path = require('path'); // Module for handling file paths
-var cookieParser = require('cookie-parser'); // Middleware for parsing cookies
-var logger = require('morgan'); // Middleware for logging requests
-let cors = require('cors'); // CORS middleware
-const mongoose = require('mongoose'); // MongoDB ODM (Object Data Modeling)
+import createError from 'http-errors'; // Module for handling HTTP errors
+import express from 'express'; // Express framework
+import path from 'path'; // Module for handling file paths
+import cookieParser from 'cookie-parser'; // Middleware for parsing cookies
+import logger from 'morgan'; // Middleware for logging requests
+import cors from 'cors'; // CORS middleware
+import mongoose from 'mongoose'; // MongoDB ODM (Object Data Modeling)
 
 // Importing route handlers
-var fileRouter = require('./routes/file'); 
-var usersRouter = require('./routes/users');
+import fileRouter from './routes/file.js';
+import usersRouter from './routes/users.js';
+
 
 var app = express(); // Initialize Express application
 

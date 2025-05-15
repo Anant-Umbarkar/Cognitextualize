@@ -1,5 +1,5 @@
 // middleware/auth.js
-const jwt = require('jsonwebtoken');
+import jwt from "jsonwebtoken";
 // JWT secret
 const JWT_SECRET = 'Cognitextualize@123';
 

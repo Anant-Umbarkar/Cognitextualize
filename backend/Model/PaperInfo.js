@@ -1,4 +1,4 @@
-const mongoose = require('mongoose'); // Import Mongoose ORM
+import mongoose from "mongoose"; // Import Mongoose ORM
 
 // Define the schema for storing paper-related information
 const PaperSchema = new mongoose.Schema({

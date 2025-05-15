@@ -1,10 +1,11 @@
-import fs from "fs"
-const path = require('path');
-const pdf = require('pdf-parse');
-const mammoth = require('mammoth');
-const csv = require('csv-parser');
-const xlsx = require('xlsx');
-const Tesseract = require('tesseract.js');
+import fs from "fs";
+import path from "path";
+import pdf from "pdf-parse";
+import mammoth from "mammoth";
+import csv from "csv-parser";
+import xlsx from "xlsx";
+import Tesseract from "tesseract.js";
+
 
 async function convertPDFToText(inputFilePath, outputTextFilePath) {
     const dataBuffer = fs.readFileSync(inputFilePath);

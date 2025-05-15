@@ -1,9 +1,10 @@
-var express = require('express');
-var router = express.Router();
-let fileController=require("../controllers/fileController");
-const multer = require('multer');
-const path = require('path');
-const auth=require("../Middleware/auth")
+import express from 'express';
+import fileController from '../controllers/fileController.js';
+import multer from 'multer';
+import path from 'path';
+import auth from '../Middleware/auth.js';
+
+const router = express.Router();
 
 // Configure Multer for file uploads
 const storage = multer.diskStorage({

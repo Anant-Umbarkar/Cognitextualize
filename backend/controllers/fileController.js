@@ -1,13 +1,14 @@
-const path = require("path");
-const { spawn } = require("child_process");
-const { Structurize } = require("../core/Regex/Regex");
-const PaperInfo = require("../Model/PaperInfo");
-const { createObjectCsvWriter } = require("csv-writer");
-const XLSX = require("xlsx");
-const fileConverter = require('../core/FileToText/Converter');
-const { Evaluate } = require("../core/evaluate/evaluate");
-import fs from "fs"
-const { csvToJson } = require("../core/CSV_2_Json/program");
+import path from "path";
+import { spawn } from "child_process";
+import { Structurize } from "../core/Regex/Regex.js";
+import PaperInfo from "../Model/PaperInfo.js";
+import { createObjectCsvWriter } from "csv-writer";
+import XLSX from "xlsx";
+import fileConverter from "../core/FileToText/Converter.js";
+import { Evaluate } from "../core/evaluate/evaluate.js";
+import fs from "fs";
+import { csvToJson } from "../core/CSV_2_Json/program.js";
+
 
 // Function to handle file conversion and saving to database
 exports.convertToText = async (req, res) => {
