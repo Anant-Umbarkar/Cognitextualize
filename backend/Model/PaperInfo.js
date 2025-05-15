@@ -18,4 +18,4 @@ const PaperSchema = new mongoose.Schema({
 // Create a model from the schema to interact with the database
 const PaperInfo = mongoose.model('PaperInfo', PaperSchema);
 
-module.exports = PaperInfo; // Export the model for use in other parts of the application
+export default PaperInfo; // Export the model for use in other parts of the application

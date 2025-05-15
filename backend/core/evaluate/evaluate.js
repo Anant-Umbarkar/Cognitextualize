@@ -22,7 +22,7 @@ function Normalize(seqData){
     return updatedData;
 }
 
-export function Evaluate(structurizedData,pre_data,Module_Hrs){
+function Evaluate(structurizedData,pre_data,Module_Hrs){
     
     let updated_structurizedData
 
@@ -403,3 +403,6 @@ export function Evaluate(structurizedData,pre_data,Module_Hrs){
         updatedBloom: BT_Weights
     }
 }   
+
+
+export default Evaluate;

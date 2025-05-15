@@ -6,6 +6,11 @@ import logger from 'morgan'; // Middleware for logging requests
 import cors from 'cors'; // CORS middleware
 import mongoose from 'mongoose'; // MongoDB ODM (Object Data Modeling)
 
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
 // Importing route handlers
 import fileRouter from './routes/file.js';
 import usersRouter from './routes/users.js';
@@ -74,4 +79,4 @@ db.once('open', () => {
   });
 });
 
-module.exports = app; // Export the Express app for external usage
+export default app; // Export the Express app for external usage

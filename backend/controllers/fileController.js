@@ -1,17 +1,17 @@
 import path from "path";
-import { spawn } from "child_process";
-import { Structurize } from "../core/Regex/Regex.js";
 import PaperInfo from "../Model/PaperInfo.js";
-import { createObjectCsvWriter } from "csv-writer";
-import XLSX from "xlsx";
-import fileConverter from "../core/FileToText/Converter.js";
-import { Evaluate } from "../core/evaluate/evaluate.js";
+import Evaluate from "../core/evaluate/evaluate.js";
 import fs from "fs";
 import { csvToJson } from "../core/CSV_2_Json/program.js";
+// import { spawn } from "child_process";
+// import { Structurize } from "../core/Regex/Regex.js";
+// import { createObjectCsvWriter } from "csv-writer";
+// import XLSX from "xlsx";
+// import {fileConverter} from "../core/FileToText/Converter.js";
 
 
 // Function to handle file conversion and saving to database
-export async function convertToText (req, res) {
+async function convertToText (req, res) {
     // Check if a file is uploaded
     if (!req.file) {
         res.status(500).send("Error while uploading file");
@@ -136,3 +136,6 @@ const saveToDB = async (FormData, filepath, ModuleInfo, COPref) => {
         return [];
     }
 };
+
+
+export default convertToText;

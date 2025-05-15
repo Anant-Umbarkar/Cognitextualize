@@ -1,10 +1,10 @@
 import express from 'express';
-import fileController from '../controllers/fileController.js';
+import convertToText from '../controllers/fileController.js';
 import multer from 'multer';
 import path from 'path';
 import auth from '../Middleware/auth.js';
 
-const router = express.Router();
+const router = express.Router()
 
 // Configure Multer for file uploads
 const storage = multer.diskStorage({
@@ -25,6 +25,6 @@ const upload = multer({ storage: storage });
 const JWT_SECRET = 'Cognitextualize@123';
 
 /* GET home page. */
-router.post('/totext',auth,upload.single('file'), fileController.convertToText);
+router.post('/totext',auth,upload.single('file'), convertToText);
 
-module.exports = router;
+export default router;
