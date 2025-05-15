@@ -1,4 +1,4 @@
-    const fs = require('fs');
+import fs from "fs"
 
 // Bloom's Taxonomy configuration objects
 // Maps verbs to their respective cognitive levels
