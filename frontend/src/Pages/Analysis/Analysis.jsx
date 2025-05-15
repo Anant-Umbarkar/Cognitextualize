@@ -484,6 +484,7 @@ const Analysis = () => {
       const token = localStorage.getItem('token');
 
       // Sending request to get the result
+      // axios.post("http://localhost/totext/",FileData, {
       axios.post("https://cognitextualize-9mqt.onrender.com/totext/",FileData, {
         "Content-Type": "multipart/form-data",
         headers:{

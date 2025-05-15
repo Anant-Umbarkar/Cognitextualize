@@ -243,8 +243,8 @@ function Evaluate(structurizedData,pre_data,Module_Hrs){
         // Adding Module value for current Question
 
         if(checkModule && i.Module){
-            numericalValue = i.Module.match(/\d+\.\d+|\d+/);
-            moduleNumber=0;
+            let numericalValue = i.Module.match(/\d+\.\d+|\d+/);
+            let moduleNumber=0;
             // Check if numericalValue is found
             if (numericalValue) {
                 // Convert the found value to a number
