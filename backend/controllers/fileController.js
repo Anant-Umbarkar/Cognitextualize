@@ -6,7 +6,7 @@ const { createObjectCsvWriter } = require("csv-writer");
 const XLSX = require("xlsx");
 const fileConverter = require('../core/FileToText/Converter');
 const { Evaluate } = require("../core/evaluate/evaluate");
-const fs = require("fs");
+import fs from "fs"
 const { csvToJson } = require("../core/CSV_2_Json/program");
 
 // Function to handle file conversion and saving to database
