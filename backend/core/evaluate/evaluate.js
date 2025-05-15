@@ -1,5 +1,3 @@
-import { FindBloomLevelsInText } from "../Regex/Regex"
-
 // Function to normalize sequence data so that the sum of M values equals 100
 function Normalize(seqData){
     let updatedData = seqData.map(item => ({...item}));
