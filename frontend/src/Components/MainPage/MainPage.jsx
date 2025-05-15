@@ -6,8 +6,8 @@ export default function MainPage() {
     <div
       className="bg-image"
       style={{
-        backgroundImage: `url("https://res.cloudinary.com/dcglxmssd/image/upload/v1729187218/ht4i9pebxllaojxudptq.png")`,
-        height: "90vh",
+        backgroundImage: `url("https://res.cloudinary.com/dcglxmssd/image/upload/v1745672541/Group_8_e80vvx.png")`,
+        height: "102vh",
         backgroundSize: "cover",
         backgroundRepeat:"no-repeat",
         backgroundPosition: "center", // Ensures the image is centered

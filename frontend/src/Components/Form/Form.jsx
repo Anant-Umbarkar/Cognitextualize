@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { useDispatch } from 'react-redux';
 import { FormActions } from '../../store/store';
+import { FaCircleInfo } from "react-icons/fa6";
+
 
 const field = [
   {
@@ -84,11 +86,13 @@ const Form = () => {
 
   return (
     <div className="mt-4 p-3">
-      <div className="container-fluid d-flex align-items-start justify-content-start">
+      <div className="heading container-fluid d-flex align-items-center justify-content-start">
         <h1>Enter Details</h1>
+        <FaCircleInfo />
+        <span className="tooltiptext">Metadata to be used for information purpose</span>
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-        <div style={{ width: '50%' }}>
+        <div style={{ width: '100%' }}>
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
             {field.map(item => (
               <TextField
@@ -99,20 +103,20 @@ const Form = () => {
                 required
                 style={{
                   margin: '8px',
-                  flexBasis: 'calc(50% - 16px)', // Two fields per row
+                  flexBasis: 'calc(25% - 16px)', // Two fields per row
                   background: 'white',
                 }}
               />
             ))}
           </div>
         </div>
-        <div>
+        {/* <div>
           <img
             src="https://res.cloudinary.com/dcglxmssd/image/upload/v1729187756/lh0doufcqv968mepmxoz.svg"
             alt="side image"
             style={{ width: '400px', height: 'auto', marginLeft: '20px',marginRight:"15em" }}
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

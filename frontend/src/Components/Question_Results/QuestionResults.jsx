@@ -3,12 +3,12 @@ import classes from './QuestionResults.module.css';
 import StickyHeadTable from '../UI/StickyHeadTable/StickyHeadTable';
 
 const bloomLevelNames = {
-    1: 'Remembering',
-    2: 'Understanding',
-    3: 'Applying',
-    4: 'Analyzing',
-    5: 'Evaluating',
-    6: 'Creating'
+    6: 'Remembering',
+    5: 'Understanding',
+    4: 'Applying',
+    3: 'Analyzing',
+    2: 'Evaluating',
+    1: 'Creating'
   };
 
   let analysisColumns=[
@@ -39,9 +39,16 @@ const bloomLevelNames = {
   ];
   
 
-const QuestionResults = ({ dummyBloomSeq, actualLevel, expectedLevel }) => {
+const QuestionResults = ({ dummyBloomSeq, actualLevel, expectedLevel,threshold }) => {
   // Calculate deviation
-  const deviation = actualLevel-expectedLevel;
+  const deviation = expectedLevel-actualLevel;
+
+  console.log(threshold)
+
+  const levelsWithUpdatedPositions = Object.entries(dummyBloomSeq)
+    .filter(([key, item]) => item.level !== "0")
+    .sort(([, a], [, b]) => Number(b.level) - Number(a.level));
+
 
   // Determine background color based on deviation value
   const deviationStyle = {
@@ -62,7 +69,7 @@ const QuestionResults = ({ dummyBloomSeq, actualLevel, expectedLevel }) => {
             <br></br>
             </div> */}
 
-        <StickyHeadTable type='analysis' negative={(actualLevel-expectedLevel)} columns={analysisColumns} data={[{Name:"Level",Actual:actualLevel,Expected:expectedLevel,Deviation:(actualLevel-expectedLevel)}]} />
+        <StickyHeadTable updatedBloom={dummyBloomSeq} type='analysis' negative={(expectedLevel-actualLevel)} columns={analysisColumns} data={[{Name:"Level",Actual:actualLevel,Expected:expectedLevel,Deviation:(expectedLevel-actualLevel)}]} />
             {/* <div style={deviationStyle}>
                 <b>Deviation:</b> {deviation}
             </div> */}
@@ -70,7 +77,7 @@ const QuestionResults = ({ dummyBloomSeq, actualLevel, expectedLevel }) => {
         {
             (deviation<0)?<div>
                 <h2>Recommendation:</h2>
-                <p style={{fontSize:"1.2em"}}>You can frame the question from bloom's taxonomy level <span style={{fontSize:"1.4em", color:"cyan",textDecoration:"underline"}}><b>{bloomLevelNames[expectedLevel]}</b></span> and above </p>
+                <p style={{fontSize:"1.2em"}}>You can frame the question from bloom's taxonomy level <span style={{fontSize:"1.4em", color:"#3366ff",textDecoration:"underline"}}><b>{bloomLevelNames[threshold]}</b></span> and above </p>
             </div>:null
         }
     </div>

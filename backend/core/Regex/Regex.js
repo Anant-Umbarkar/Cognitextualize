@@ -1,5 +1,7 @@
     const fs = require('fs');
 
+// Bloom's Taxonomy configuration objects
+// Maps verbs to their respective cognitive levels
     const bloomsTaxonomyVerbs = {
         "remember": [
             "recall", "give", "reproduce", "memorize", "define", "identify", "describe", "label", 
@@ -40,7 +42,7 @@
             "debate", "justify", "persuade", "defend", "support", "summarize", "editorialize", 
             "predict", "distinguish", "prioritize", "validate", "choose", "mediate", 
             "approve", "verify", "moderate", "determine", "examine", "assure", "resolve", 
-            "question", "certify"
+            "question", "certify","prove"
         ],
         "create": [
             "design", "compose", "create", "plan", "combine", "formulate", "invent", 
@@ -72,6 +74,7 @@
         "create": 6,
     };
 
+    // Helper function to find Bloom's level for a given word
     function findBloomLevel(word) {
         for (const level in bloomsTaxonomyVerbs) {
             if (bloomsTaxonomyVerbs[level].includes(word)) {
@@ -81,6 +84,7 @@
         return "Not Found";
     }
     
+    // Main function to analyze text for Bloom's taxonomy verbs
     exports.FindBloomLevelsInText = (text) => {
         const words = text.split(/\W+/); // Split by word characters
         const wordResult = [];
@@ -89,6 +93,14 @@
       
         for (const word of words) {
           const level = findBloomLevel(word.toLowerCase());
+
+        //   if(level=="Not Found"){
+        //     const levelIndex=1;
+        //     wordResult.push(word);
+        //     levelResult.push(levelIndex);
+        //     highestLevel = Math.max(highestLevel, levelIndex);
+        //   }
+
           if (level !== "Not Found") {
             const levelIndex = getBloomLevelIndex(level);
             wordResult.push(word);
@@ -125,12 +137,16 @@
 
         const seq = JSON.parse(data);
         seq.forEach((item, index) => {
+            // Handle different field types to create appropriate regex patterns
             if (item.FieldType == 'QN') {
+                 // Question number patterns
                 RegexData.push([item.FieldTitle,regex[item.FieldType][item.DenotedBy]]);
             } else if(item.FieldType=='MO'){
+                // Module regex pattern
                 let modRegex=new RegExp(/Module\s+\d+/i);
                 RegexData.push([item.FieldTitle,modRegex]);
             } else if (item.FieldType == 'QT') {
+                // Question type patterns from DenotedBy field
                 const arrayOfStrings = item.DenotedBy.split(" "); // Replace with your array of strings
 
                 // Escaping each string and joining them with the | operator for alternation
@@ -139,8 +155,10 @@
                 }).join('|'));
                 RegexData.push([item.FieldTitle,regexPattern]);
             } else if (item.FieldType == 'CO') {
+                 // Course outcome pattern  
                 RegexData.push([item.FieldTitle,regex[item.FieldType]]);
             }else if (item.FieldType == 'Mrk') {
+                 // Marks pattern with context-aware construction   
                 let MrkRegex = '\\s*(\\d+)\\s*'; // Fix the regular expression syntax
                 if (index > 0) {
                     if (seq[index - 1].FieldType == 'QN') {
@@ -162,6 +180,7 @@
                 }
                 RegexData.push([item.FieldTitle,MrkRegex]);
             } else {
+                // Default question content pattern
                 let QRegex = '([\s\S]*)/';
                 if (index > 0) {
                     if (seq[index - 1].FieldType == 'QN') {
@@ -178,62 +197,58 @@
     }
 
 
-    exports.QuestionData = (data, inputFile) => {
-        const regexData = this.GetRegex(data);
-        // console.log(regexData,data)
-        let previousFieldRegex = regexData[0][1];
+// Question extraction module
+exports.QuestionData = (data, inputFile) => {
+    const regexData = this.GetRegex(data);
+    const text = fs.readFileSync(inputFile, 'utf8');
+    const previousFieldPattern = new RegExp(regexData[0][1], 'g');
+    const previousFieldMatches = [...text.matchAll(previousFieldPattern)];
+    
+    // Split text into individual questions using regex boundaries
+    const questions = [];
+    previousFieldMatches.forEach((match, i) => {
+        const startIndex = match.index;
+        const endIndex = i < previousFieldMatches.length - 1 
+            ? previousFieldMatches[i + 1].index 
+            : text.length;
+        questions.push(text.slice(startIndex, endIndex).trim());
+    });
 
-        const text = fs.readFileSync(inputFile, 'utf8');
+    return { questions, regexData };
+};
 
-        const previousFieldPattern = new RegExp(previousFieldRegex, 'g');
-        const previousFieldMatches = [...text.matchAll(previousFieldPattern)];
+// Main processing function to structure question data
+exports.Structurize = (data, inputFile) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const { questions, regexData } = this.QuestionData(data, inputFile);
+            const StructurizedData = [];
 
-        const questions = [];
+            questions.forEach((item) => {
+                let structuredItem = {};
 
-        // console.log("previois : ",previousFieldMatches)
-
-        for (let i = 0; i < previousFieldMatches.length; i++) {
-            const startIndex = previousFieldMatches[i].index;
-            const endIndex = i < previousFieldMatches.length - 1 ? previousFieldMatches[i + 1].index : text.length;
-            const questionText = text.slice(startIndex, endIndex).trim();
-
-            questions.push(questionText);
-        }
-        // console.log("Yoquestions,regexData)
-        return { questions, regexData };
-    }
-
-    exports.Structurize = (data, inputFile) => {
-        return new Promise((resolve, reject) => {
-            try {
-                const { questions, regexData } = this.QuestionData(data, inputFile);
-                let StructurizedData = [];
-
-                questions.forEach((item) => {
-                    let structuredItem = {};
-
-                    regexData.forEach((currentRegex) => {
-                        // Using a regular expression to extract the desired information
-                        let match = item.match(currentRegex[1]);
-                        if (match == null) match = [item];
-                        if (match) {
-                            structuredItem[currentRegex[0]] = match[1] == undefined ? match[0] : match[1]; // Store the matching value
-                        }
-                    });
-
-                    const bloom = this.FindBloomLevelsInText(item);
-                    structuredItem["Bloom's Verbs"] = bloom.words;
-                    structuredItem["Bloom's Taxonomy Level"] = bloom.highestLevel;
-
-                    // Remove unnecessary prefix before resolving
-                    structuredItem.Q = item.replace(/^[\s\S]*?\)\s*/, ""); // This regex removes everything before the first closing parenthesis followed by whitespace
-                    
-                    StructurizedData.push(structuredItem);
+                // Apply all regex patterns to extract structured data
+                regexData.forEach(([fieldTitle, pattern]) => {
+                    const match = item.match(pattern);
+                    structuredItem[fieldTitle] = match 
+                        ? (match[1] ?? match[0]) 
+                        : null;
                 });
 
-                resolve(StructurizedData);
-            } catch (error) {
-                reject(error);
-            }
-        });
-    };
+                // Add Bloom's taxonomy analysis
+                const bloom = this.FindBloomLevelsInText(item);
+                structuredItem["Bloom's Verbs"] = bloom.words;
+                structuredItem["Bloom's Taxonomy Level"] = bloom.highestLevel;
+
+                // Clean question text by removing numbering prefixes
+                structuredItem.Q = item.replace(/^[\s\S]*?\)\s*/, "");
+
+                StructurizedData.push(structuredItem);
+            });
+
+            resolve(StructurizedData);
+        } catch (error) {
+            reject(error);
+        }
+    });
+};

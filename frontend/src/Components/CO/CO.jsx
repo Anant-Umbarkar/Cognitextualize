@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {FormActions} from '../../store/store';
 import COColumn from '../COColumn/COColumn';
 
+import { FaCircleInfo } from "react-icons/fa6";
+
 const CO = () => {
     const containerRef=useRef();
     // redux
@@ -61,9 +63,11 @@ const CO = () => {
       };
     
   return (<div className='mt-4 p-3' >
-  <div className="container-fluid  d-flex align-items-center justify-content-start">
-<h1 className=''>Course Outcome(CO)</h1>
-</div>
+    <div className="heading container-fluid  d-flex align-items-center justify-content-start">
+        <h1 className=''>Course Outcome(CO)</h1>
+        <FaCircleInfo />
+        <span className="tooltiptext">Map course outcome and their bloom's taxonomy levels with each course outcome having a weightage</span>
+    </div>
     <div className='${classes.CO}' ref={containerRef} >
         <div className='${classes.Sequence_InnerContainer} '>
             {columns[0]!=null ? 

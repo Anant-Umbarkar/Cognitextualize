@@ -2,14 +2,13 @@ import * as React from 'react';
 import { PieChart } from '@mui/x-charts/PieChart';
 import { Typography } from '@mui/material';
 
-const valueFormatter = (item) => `${item.value.toFixed(2)}%`;
+// Forward ref here
+const PieChartModule = React.forwardRef(({ data, chartLabel }, ref) => {
+  const valueFormatter = (item) => `${item.value.toFixed(2)}%`;
 
-// present the pie chart
-export default function PieChartModule({ data, chartLabel }) {
-  console.log(data,chartLabel)
   return (
-    // show the main div
-    <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
+    // Attach ref to main div
+    <div ref={ref} style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
       <Typography style={{ fontWeight: "bold", color: "black" }}>
         {chartLabel}
       </Typography>
@@ -19,8 +18,7 @@ export default function PieChartModule({ data, chartLabel }) {
             data: data,
             highlightScope: { fade: 'global', highlight: 'item' },
             faded: { innerRadius: 30, additionalRadius: -30, color: 'black' },
-            valueFormatter // Example formatter
-            // value:"5%"  
+            valueFormatter
           },
         ]}
         height={200}
@@ -30,4 +28,6 @@ export default function PieChartModule({ data, chartLabel }) {
       <br />
     </div>
   );
-}
+});
+
+export default PieChartModule;

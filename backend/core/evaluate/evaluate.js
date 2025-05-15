@@ -1,25 +1,32 @@
 const { FindBloomLevelsInText } = require("../Regex/Regex")
 
+// Function to normalize sequence data so that the sum of M values equals 100
 function Normalize(seqData){
+    let updatedData = seqData.map(item => ({...item}));
     let sum=0;
-
-    seqData.map(item=>{
-        sum+=(+item.M)
+    
+    // Calculate total sum of M values
+    updatedData.map(item=>{
+        sum+=(+item.Marks)
     });
 
+    // If already 100, return as is
     if(sum==100){
-        return seqData;
+        return updatedData;
     }
 
-    seqData.map(item=>{
-        let percentage=((+item.M)/sum)*100;
-        item.M=percentage;
+    // Normalize values to ensure total equals 100
+    updatedData.map(item=>{
+        let percentage=((+item.Marks)/sum)*100;
+        item.Marks=percentage;
     });
 
-    return seqData;
+    return updatedData;
 }
 
-exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
+exports.Evaluate=(structurizedData,pre_data,Module_Hrs)=>{
+    
+    let updated_structurizedData
 
     // weights in percentage
     let BT_Weights={
@@ -33,11 +40,16 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
 
     let ModuleWeights=[];
 
-    
-
-
     // Convert object to array of [key, value] pairs
     let dataArray = Object.entries(pre_data);
+
+    // [
+    //     [ '1', { level: 2, score: 50 } ],
+    //     [ '2', { level: 3, score: 30 } ],
+    //     [ '3', { level: 4, score: 20 } ]
+    //   ]
+
+    // console.log("******************",dataArray)
 
     // Sort array based on the score property of each object
     dataArray.sort((a, b) => {
@@ -48,8 +60,12 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
         }
     });
 
+    // console.log(dataArray)
+
     dataArray.map((item,i)=>{
         // can add score using folllowing line
+        // assigning new order to bloom's taxonomy level and setting the weights to
+        // levels present in the CO
         BT_Weights[item[1].level]={
             level:i+1,
             weights:item[1].score,
@@ -60,41 +76,46 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
         // BT_Weights[item[1].level]=i+1;
     });
 
+    // -----------------------------
+    // THE CODE BELOW IS REPEATED
 
-
-    // Convert object to array of [key, value] pairs
-    let BT_Final = Object.entries(pre_data);
+    // // Convert object to array of [key, value] pairs
+    // let BT_Final = Object.entries(pre_data);
 
     // Sort array based on the score property of each object
-    BT_Final.sort((a, b) => {
-        if (a[1].score !== b[1].score) {
-            return b[1].score - a[1].score; // Sort by score descending
-        } else {
-            return a[1].level - b[1].level; // Sort by level ascending
-        }
-    });
+    // BT_Final.sort((a, b) => {
+    //     if (a[1].score !== b[1].score) {
+    //         return b[1].score - a[1].score; // Sort by score descending
+    //     } else {
+    //         return a[1].level - b[1].level; // Sort by level ascending
+    //     }
+    // });
 
-    // Map sorted data to BT_Weights object
-    BT_Final.forEach((item, i) => {
-        BT_Weights[item[1].level] = {
-            level:i+1,
-            weights:item[1].score,
-            marks:0,
-            BT_penalty:0,
-            No_Of_Questions:0,
-        };
-    });
+    // // Map sorted data to BT_Weights object
+    // BT_Final.forEach((item, i) => {
+    //     BT_Weights[item[1].level] = {
+    //         level:i+1,
+    //         weights:item[1].score,
+    //         marks:0,
+    //         BT_penalty:0,
+    //         No_Of_Questions:0,
+    //     };
+    // });
 
-    console.log(BT_Weights);
+    // -----------------------------
+
+    // console.log(BT_Weights);
 
     // Set level to length of pre_data + 1 for any levels that were not present in pre_data
     let lowestLevel=Object.keys(pre_data).length + 1;
+    let l_level=lowestLevel
     for (let key in BT_Weights) {
         if (BT_Weights[key].level === 0) {
-            BT_Weights[key].level = Object.keys(pre_data).length + 1;
+            BT_Weights[key].level = l_level++;  // CHANGED THIS LINE
         }
     }
 
+    // console.log(BT_Weights)
 
 
     // Find Blooms Level of all the COs
@@ -109,12 +130,16 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
     if(Module_Hrs.length==1 && Module_Hrs[0]==0){
         checkModule=false;
     }
+
+    // If the module information is given
     if(checkModule){
+
         let totalHrs=0;
         Module_Hrs.map(i=>{
             totalHrs+=(+i)
         })
 
+        // get the percentage contribution of modules
         Module_Hrs.map((v,i)=>{
             let newObj={
                 expected:((+v)/totalHrs)*100,
@@ -125,8 +150,10 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
         })
     
     }
-    SequenceData=Normalize(SequenceData)
 
+    // Get normalized data
+    updated_structurizedData=Normalize(structurizedData)
+    // console.log(structurizedData)
     // let sum=0;
 
     // seqData.map(item=>{
@@ -138,11 +165,15 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
     let CO_Map={};
     let Module_Map={};
     let BT_Map={};
-    SequenceData.map(i=>{
-        console.log(i)
-        QT_Map[i["Question Type"]]=0;
+    updated_structurizedData.map(i=>{
+        // console.log(i)
+
+        if(i["Question Type"]){
+            QT_Map[i["Question Type"]]=0;
+        }
+        
         let numericalValue,moduleNumber=0;
-        if(checkModule){
+        if(checkModule && i.Module){
             numericalValue = i.Module.match(/\d+\.\d+|\d+/);
             // Check if numericalValue is found
             if (numericalValue) {
@@ -153,23 +184,34 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
         }
         
 
-        // get the co in number
+        // get the CO in number from string
         let co=parseInt(i.CO.match(/\d+/)[0]);
         
         CO_Map[co]=0;
-        console.log("----------",i,i["Bloom's Taxonomy Level"],BT_Weights,i["Bloom's Taxonomy Level"],"---------------");
+        // console.log("----------",i,i["Bloom's Taxonomy Level"],BT_Weights,i["Bloom's Taxonomy Level"],"---------------");
+        // Create map of re-organized level to track the number of questions
+        if(i["Bloom's Taxonomy Level"]==0) i["Bloom's Taxonomy Level"]=1;
         BT_Map[BT_Weights[i["Bloom's Taxonomy Level"]].level]=0;
     })
 
+
+
+
+    
+    // performing main calculation
     let QP=0,C1=0,C2=0,C3=0,C4=0,penaltyCtr=0;
-    let newSeqData=SequenceData;
-    // console.log(BT_Weights)
-    SequenceData.map((i,ind)=>{
+    let newSeqData=updated_structurizedData;
+    
+    newSeqData.map((i,ind)=>{
         let LM=0,HM=0,LR=0,HR=0;
         // let D=BT_Weights[i["Bloom's Taxonomy Level"]].level-BT_Weights[i.CO].level;
         let co=parseInt(i.CO.match(/\d+/)[0]);
         let QHBTL=BT_Weights[i["Bloom's Taxonomy Level"]].level;
         let COBTL=BT_Weights[co].level;
+
+
+
+        // calculating D and adding the reward and penalty
         let D=COBTL-QHBTL;
 
         if(D==0 || D==-1){
@@ -182,6 +224,7 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
             LM++;
         }
         
+        // Add remark according to the value of D
         if(D==0){
             i["Remark"]="Matches Expected Blooms Level"
         } else if(D<0){
@@ -189,21 +232,19 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
         } else if(D>0){
             i["Remark"]="Lower than Expected Blooms Level"
         }
-
+        
+        // Find value of QP according to the given formula
         QP=QP+(-LM-(2*HM)+LR+(2*HR));
 
         // Adding BT value for current Question
-        BT_Weights[i["Bloom's Taxonomy Level"]].marks+=(+i.M);
+        BT_Weights[i["Bloom's Taxonomy Level"]].marks+=(+i.Marks);
         BT_Weights[i["Bloom's Taxonomy Level"]].No_Of_Questions++;
         // console.log(co)
-        CO_Map[co]+=(+i.M);
+        CO_Map[co]+=(+i.Marks);
 
+        // Adding Module value for current Question
 
-
-        // // Adding Module value for current Question
-        // // Find Modulenumber and increment the counter
-        let numericalValue,moduleNumber=0;
-        if(checkModule){
+        if(checkModule && i.Module){
             numericalValue = i.Module.match(/\d+\.\d+|\d+/);
             moduleNumber=0;
             // Check if numericalValue is found
@@ -212,7 +253,7 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
                 moduleNumber = parseFloat(numericalValue[0]);
             }
             let act=ModuleWeights[moduleNumber-1].actual;
-            ModuleWeights[moduleNumber-1].actual=(+i.M)+act;
+            ModuleWeights[moduleNumber-1].actual=(+i.Marks)+act;
         }
         
 
@@ -227,11 +268,13 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
         // }
         // C3+=BT_Weights[CO_BT_Level[CONumber]]*(+i.M);
 
-
-
-        // -------- Maintaining count for BT,Module,CO and QT -------
-        QT_Map[i["Question Type"]]++;
-        Module_Map[moduleNumber]++;
+        // Maintaining count for BT,Module,CO and QT
+        if(i["Question Type"]){
+            QT_Map[i["Question Type"]]++;
+        }
+        if(i.Module){
+            Module_Map[i.Module]++;
+        }
         CO_Map[i.CO]++;
         BT_Map[i["Bloom's Taxonomy Level"]]++;
     });
@@ -241,6 +284,8 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
     for(let i=0;i<6;i++){
         let item=BT_Weights[i+1];
         let temp=item.level-1;
+
+        // Update the reward counter accordingly
         if(temp==1){
             lr++;
         } else if(temp>1){
@@ -256,6 +301,8 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
     for(let i=0;i<6;i++){
         let item=BT_Weights[i+1];
         let temp=(lowestLevel)-item.level;
+
+        // update the mismatch counters accordingly
         if(temp==1){
             lm++;
         } else if(temp>1){
@@ -264,8 +311,11 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
             continue;
         }
     }
+
+    // Find QPLow and QPHigh
     QPLow+=lm+(2*hm);
     QPLow*=-1;
+
     if(QP>QPHigh){
         QP=QPHigh
     }
@@ -276,15 +326,20 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
 
     // calculate C1 penalty 
     let BT_Data=[]
+    // Range over all 6 levels
     for(let i=0;i<6;i++){
         let item=BT_Weights[i+1];
         BT_Data.push({expected:item.weights,actual:item.marks})
         if(item.weights!=0 && item.marks==0){
-            penaltyCtr++;
+            penaltyCtr++; // increment the penalty counter
         } else {
+            // Find the percentage difference
             let diff=(item.weights-item.marks)/item.weights;
+
+            // update the penalty and C1 if the difference is greater than 0
             if(diff>0){
-                item.BT_penalty=diff;
+                // LOOK INTO THIS
+                BT_Weights[i+1].BT_penalty=diff;
                 C1+=diff;
             }
         }
@@ -293,23 +348,33 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
     // C2
     if(checkModule){
         ModuleWeights.map(item=>{
+            // Find difference between actual and expected module
             let diff=(item.expected-item.actual)/item.expected;
+
+            // update the C2 if difference is greater than 0
             if(diff>=0){
                 C2+=diff;
             }
         });   
     }
-    // console.log(C2)
-    let CO_Data=[]
+
+
     // C3
+    let CO_Data=[]
     dataArray.map(item=>{
         CO_Data.push({expected:item[1].score,actual:CO_Map[item[0]]})
+        // Find differencce for each CO
         let diff=(item[1].score-CO_Map[item[0]])/item[1].score;
         
+        // update C3 if diff is greater than 0
         if(diff>0){
             C3+=diff;
         }
     });
+
+
+    // Find PF_Percentage depending upon whether the module values
+    // are given or not
     let P_Final,PF_Percentage;
     if(checkModule){
         P_Final=(C1+C2+C3);
@@ -319,13 +384,20 @@ exports.Evaluate=(FormData,SequenceData,sequence,pre_data,Module_Hrs)=>{
         PF_Percentage=(P_Final/2)*100;
     }
     
+    // Find the final score
     let FinalScore=(QP_Final+PF_Percentage)/2;
+
+    // DEBUGGING CODE!!!!!
+
     // console.log(lowestLevel,QPLow,QPHigh,QP_Final,QP,P_Final,PF_Percentage,FinalScore)
     // console.log(C1,C2,C3)
     // console.log(dataArray,pre_data,BT_Weights,CO_Map)
     // console.log(ModuleWeights,BT_Data,CO_Data)
+
+
+    // Return the expected values
     return {
-        QuestionData:SequenceData,
+        QuestionData:structurizedData,
         ModuleData:ModuleWeights,
         BloomsData:BT_Data,
         COData:CO_Data,

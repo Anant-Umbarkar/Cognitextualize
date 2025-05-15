@@ -3,6 +3,7 @@ import classes from './Module.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {FormActions} from '../../store/store';
 import ModuleColumn from '../ModuleColumn/ModuleColumn';
+import { FaCircleInfo } from "react-icons/fa6";
 
 const Module = () => {
     const containerRef=useRef();
@@ -61,9 +62,11 @@ const Module = () => {
       };
     
   return (<div className='mt-4  p-3'>
-  <div className="container-fluid  d-flex align-items-center justify-content-start">
-<h1 >Module Info</h1>
-</div>
+    <div className="heading container-fluid  d-flex align-items-center justify-content-start">
+        <h1 >Module Info</h1>
+        <FaCircleInfo />
+        <span className="tooltiptext">The number of hours spent on each module, in-order to find the weightage of each one</span>
+    </div>
     <div className={classes.Module} ref={containerRef} >
         <div className='${classes.Sequence_InnerContainer} d-flex align-items-center justify-content-start flex-wrap'>
             {columns[0]!=null ? 

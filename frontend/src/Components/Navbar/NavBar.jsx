@@ -1,31 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import './Footer.css'; // Linking the CSS
-import { NavLink } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import "./NavBar.css";
+import { IoClose } from "react-icons/io5";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { GrAnalytics } from "react-icons/gr";
 
-const Footer = () => {
+function NavBar() {
   const [click, setClick] = useState(false);
   const [loggedIn, setloggedIn] = useState(localStorage.getItem("token"));
+  const navigate = useNavigate();
+
   useEffect(()=>{
     setloggedIn(localStorage.getItem("token"));
   },[localStorage.getItem("token")])
 
-
   const handleClick = () => setClick(!click);
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setloggedIn(null);
+    navigate("/");
+  };
+  const handleLogin = () => {
+    navigate("/auth");
+  };
+
   return (
-    <div className="footer-outer">
-      <div className='image_container'>
-        <img src='https://res.cloudinary.com/dcglxmssd/image/upload/v1745671728/Group_1_3_x6xltl.png' alt='education'/>
-      </div>
-      <div className="footer-inner">
-        <div className="c1">
-          <div className="logo">
-            <NavLink exact="true" to="/" className="nav-logo-footer">
-              <GrAnalytics />
-            </NavLink></div>
-          <div className="navlinks">
-          <li className="nav-item">
+    <>
+      <nav className="navbar">
+        <div className="nav-container">
+          <NavLink exact="true" to="/" className="nav-logo">
+            <GrAnalytics />
+          </NavLink>
+
+          <ul className={click ? "nav-menu active" : "nav-menu"}>
+            <li className="nav-item">
               <NavLink
                 exact="true"
                 to="/"
@@ -75,17 +84,40 @@ const Footer = () => {
                 onClick={handleClick}
               >
                 Resources
-              </NavLink> 
-            </li>*/}
+              </NavLink>
+            </li> */}
 
+            {loggedIn && (
+              <li className="nav-item logout-btn-wrapper">
+                <button className="logout-btn" onClick={handleLogout}>
+                  Logout
+                </button>
+              </li>
+            )}
+            {!loggedIn && (
+              <li className="nav-item login-btn-wrapper">
+                <button className="login-btn" onClick={handleLogin}>
+                  Login
+                </button>
+              </li>
+            )}
+          </ul>
+
+          <div className="nav-icon" onClick={handleClick}>
+            {click ? (
+              <span className="icon">
+                <GiHamburgerMenu />
+              </span>
+            ) : (
+              <span className="icon">
+                <IoClose />
+              </span>
+            )}
           </div>
         </div>
-        <div className="c2">
-          © 2025 Cognitextualize. All rights reserved.
-        </div>
-      </div>
-    </div>
+      </nav>
+    </>
   );
-};
+}
 
-export default Footer;
+export default NavBar;

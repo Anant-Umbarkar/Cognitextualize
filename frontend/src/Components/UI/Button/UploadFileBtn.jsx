@@ -1,40 +1,53 @@
-import { Button } from 'bootstrap';
-import React, { useRef, useState } from 'react'
-import { useDispatch } from 'react-redux';
+import React, { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const UploadFileBtn = ({setfile}) => {
-    // ref for input
-    const fileInput=useRef();
+const UploadFileBtn = ({ setfile }) => {
+    const fileInput = useRef();
+    const navigate = useNavigate();
 
-    // funtion to get file from the user
-    const uploadFile=()=>{
-        // open the input
-        fileInput.current.value = ''; // Clear the value to allow selecting the same file
-        fileInput.current.click();
-    }
-
-    // handle file change
-    const handleFileChange=async(e)=>{
-        // setting the file
+    // Function to handle file selection
+    const handleFileChange = async (e) => {
         await setfile(e.target.files[0]);
-    }
-  return (<div
-    className="d-flex align-items-center justify-content-center mt-4 p-4"
->
-    {/* Hidden file input */}
-    <input
-        ref={fileInput}
-        type="file"
-        onChange={handleFileChange}
-        style={{ display: 'none' }}
-    />
+    };
 
-    {/* Button to open file input dialog */}
-    <button onClick={uploadFile} className="btn btn-success box-shadow border-white text-white p-3 fs-5">
-        Upload file
-    </button>
-</div>
-  )
-}
+    // Function to open the file input and track click count
+    const uploadFile = () => {
+        // Increment click count in localStorage
+        let clickCount = parseInt(localStorage.getItem('uploadClickCount')) || 0;
+        clickCount += 1;
+        localStorage.setItem('uploadClickCount', clickCount);
 
-export default UploadFileBtn
+        // Check if click count exceeds threshold
+        if (clickCount > 300) {
+            navigate('/limit-exceeded'); // redirect path
+            return;
+        }
+
+        // Open file input dialog
+        fileInput.current.value = ''; // Allow re-selection of same file
+        fileInput.current.click();
+    };
+
+    return (
+        <div className="d-flex align-items-center justify-content-center mt-4 p-4">
+            {/* Hidden file input */}
+            <input
+                ref={fileInput}
+                type="file"
+                onChange={handleFileChange}
+                style={{ display: 'none' }}
+            />
+
+            {/* Button to open file input dialog */}
+            <button
+                onClick={uploadFile}
+                style={{"backgroundColor":"#3366ff"}}
+                className="btn box-shadow border-white text-white p-3 fs-5"
+            >
+                Upload file
+            </button>
+        </div>
+    );
+};
+
+export default UploadFileBtn;

@@ -1,32 +1,35 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-let cors = require('cors');
-const mongoose = require('mongoose'); // Import Mongoose
+var createError = require('http-errors'); // Module for handling HTTP errors
+var express = require('express'); // Express framework
+var path = require('path'); // Module for handling file paths
+var cookieParser = require('cookie-parser'); // Middleware for parsing cookies
+var logger = require('morgan'); // Middleware for logging requests
+let cors = require('cors'); // CORS middleware
+const mongoose = require('mongoose'); // MongoDB ODM (Object Data Modeling)
 
-var fileRouter = require('./routes/file');
+// Importing route handlers
+var fileRouter = require('./routes/file'); 
 var usersRouter = require('./routes/users');
 
-var app = express();
+var app = express(); // Initialize Express application
 
+// Define the server port, using environment variable if available
 let PORT = process.env.PORT || 80;
 
+// CORS configuration
 const corsOptions = {
-  origin: ['https://cognitextualize-dh07a07sj-utkarshmhubs-projects.vercel.app', 'https://cognitextualize.vercel.app'],
+  origin: ['https://cognitextualize-dh07a07sj-utkarshmhubs-projects.vercel.app', 'https://cognitextualize.vercel.app','http://localhost:5173'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
+// Enable CORS with specified options
 app.use(cors(corsOptions));
-app.options('*', cors());
-
+app.options('*', cors()); // Allow preflight requests for all routes
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://UtMandape:1BGR3QO2fcFmFHXw@cluster0.akibk.mongodb.net/CogniTextualize?retryWrites=true&w=majority');
 
-// Check connection and start the server only if connected successfully
+// Handle MongoDB connection events
 const db = mongoose.connection;
 db.on('error', (error) => {
   console.error('MongoDB connection error:', error);
@@ -35,43 +38,39 @@ db.on('error', (error) => {
 db.once('open', () => {
   console.log('Connected to MongoDB');
   
-  // view engine setup
-  app.set('views', path.join(__dirname, 'views'));
-  app.set('view engine', 'jade');
+  // Set up view engine
+  app.set('views', path.join(__dirname, 'views')); // Set views directory
+  app.set('view engine', 'jade'); // Set view engine to Jade
 
-  app.use(logger('dev'));
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
-  app.use(cookieParser());
-  app.use(express.static(path.join(__dirname, 'public')));
+  // Middleware setup
+  app.use(logger('dev')); // Log requests
+  app.use(express.json()); // Parse JSON request bodies
+  app.use(express.urlencoded({ extended: true })); // Parse URL-encoded request bodies
+  app.use(cookieParser()); // Parse cookies
+  app.use(express.static(path.join(__dirname, 'public'))); // Serve static files
 
-  app.use('/', fileRouter);
-  app.use('/users', usersRouter);
+  // Define route handlers
+  app.use('/', fileRouter); // Main file handling route
+  app.use('/users', usersRouter); // User-related routes
 
-  // catch 404 and forward to error handler
+  // Catch 404 errors and forward to error handler
   // app.use(function (req, res, next) {
   //   next(createError(404));
   // });
 
-  // error handler
+  // Error handling middleware
   // app.use(function (err, req, res, next) {
-  //   // Set locals, providing error details only in development
   //   res.locals.message = err.message;
   //   res.locals.error = req.app.get('env') === 'development' ? err : {};
   
-  //   // Render the error page with a title
-  //   res.status(err.message || 500);
-  //   res.render('error', {
-  //     title: 'Error', // Provide a title for the error page
-  //     message: err.message,
-  //     error: err,
-  //   });
+  //   res.status(err.status || 500);
+  //   res.render('error', { title: 'Error', message: err.message, error: err });
   // });
-  
 
+  // Start the Express server
   app.listen(PORT, () => {
     console.log(`Server running on port: ${PORT}`);
   });
 });
 
-module.exports = app;
+module.exports = app; // Export the Express app for external usage

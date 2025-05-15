@@ -6,82 +6,91 @@ const { createObjectCsvWriter } = require("csv-writer");
 const XLSX = require("xlsx");
 const fileConverter = require('../core/FileToText/Converter');
 const { Evaluate } = require("../core/evaluate/evaluate");
-const fs=require("fs");
+const fs = require("fs");
+const { csvToJson } = require("../core/CSV_2_Json/program");
 
+// Function to handle file conversion and saving to database
 exports.convertToText = async (req, res) => {
+    // Check if a file is uploaded
     if (!req.file) {
         res.status(500).send("Error while uploading file");
         return;
     }
-    const fileType = req.file.mimetype;
-    const inputFileName = req.file.originalname;
 
-    const timestamp = Date.now();
-    const outputFileName = `${path.basename(inputFileName, path.extname(inputFileName))}_${timestamp}.txt`;
-    const outputFilePath = path.join(__dirname, '../Converted', outputFileName);
+    const fileType = req.file.mimetype;  // Get the MIME type of the uploaded file
+    const inputFileName = req.file.originalname;  // Get the original file name
+
+    const timestamp = Date.now();  // Generate timestamp for the output file
+    const outputFileName = `${path.basename(inputFileName, path.extname(inputFileName))}_${timestamp}.txt`;  // Generate output file name
+    const outputFilePath = path.join(__dirname, '../Converted', outputFileName);  // Set the output file path
 
     try {
-        switch (fileType) {
-            case "application/pdf":
-                await fileConverter.convertPDFToText(req.file.path, outputFilePath);
-                break;
-            case "text/csv":
-                await fileConverter.convertCSVToText(req.file.path, outputFilePath);
-                break;
-            case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
-                await fileConverter.convertXLSXToText(req.file.path, outputFilePath);
-                break;
-            case "image/jpeg":
-            case "image/png":
-                await fileConverter.convertImageToText(req.file.path, outputFilePath);
-                break;
-            case "application/msword":
-            case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
-                await fileConverter.convertWordToText(req.file.path, outputFilePath);
-                break;
-            default:
-                res.send("Invalid File Format");
-                return;
-        }
+        // Determine conversion logic based on file type
+        // switch (fileType) {
+        //     case "application/pdf":
+        //         await fileConverter.convertPDFToText(req.file.path, outputFilePath);  // Convert PDF to text
+        //         break;
+        //     case "text/csv":
+        //         await fileConverter.convertCSVToText(req.file.path, outputFilePath);  // Convert CSV to text
+        //         break;
+        //     case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+        //         await fileConverter.convertXLSXToText(req.file.path, outputFilePath);  // Convert XLSX to text
+        //         break;
+        //     case "image/jpeg":
+        //     case "image/png":
+        //         await fileConverter.convertImageToText(req.file.path, outputFilePath);  // Convert image to text
+        //         break;
+        //     case "application/msword":
+        //     case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+        //         await fileConverter.convertWordToText(req.file.path, outputFilePath);  // Convert Word to text
+        //         break;
+        //     default:
+        //         res.send("Invalid File Format");  // Handle invalid file format
+        //         return;
+        // }
 
-        const data = await saveToDB(req.body.Sequence, req.body.FormData, outputFilePath, req.body.ModuleInfo, req.body.COPref);
+        // Save the data to the database after conversion
+        const data = await saveToDB(req.body.FormData, req.file.path, req.body.ModuleInfo, req.body.COPref);
 
-        // Delete the uploaded file and the converted output file
+        // Delete the uploaded file after processing
         fs.unlink(req.file.path, (err) => {
             if (err) console.error(`Error deleting uploaded file: ${err.message}`);
             else console.log("Uploaded file deleted successfully.");
         });
 
-        fs.unlink(outputFilePath, (err) => {
-            if (err) console.error(`Error deleting output file: ${err.message}`);
-            else console.log("Output file deleted successfully.");
-        });
+        // Delete the output file after processing
+        // fs.unlink(outputFilePath, (err) => {
+        //     if (err) console.error(`Error deleting output file: ${err.message}`);
+        //     else console.log("Output file deleted successfully.");
+        // });
 
+        // Send the result back to the client
         res.send(data);
     } catch (error) {
+        // Catch errors and send an error response
         console.error('Error converting file or saving to DB:', error);
         res.status(500).send("Error converting file or saving to DB");
     }
 };
 
-const saveToDB = async (Sequence, FormData, outputFilePath,ModuleInfo,COPref) => {
+// Function to save converted data to the database
+const saveToDB = async (FormData, filepath, ModuleInfo, COPref) => {
     try {
-        // key = actually CO belongs to
-        // 
-        let pre_data=JSON.parse(COPref)
-        const structurizedData=await Structurize(Sequence,outputFilePath);
+        // Parse the preferences, sequence, form data, and module info from the request body
+        let pre_data = JSON.parse(COPref);
+        let structurizedData=csvToJson(filepath,"|")   // Structure the data after conversion
+        // console.log("------Data------\n",structurizedData,"\n------end------")
         const timestamp = Date.now();
         const parsedFormData = JSON.parse(FormData);
-        let sequence=JSON.parse(Sequence)
-        let moduleInfo=JSON.parse(ModuleInfo)
-        // console.log(structurizedData)
+        let moduleInfo = JSON.parse(ModuleInfo);
 
-        // Evaluate
-        let result=Evaluate(parsedFormData,structurizedData,sequence,pre_data,moduleInfo)
+        // console.log("structurized: ",structurizedData)
+
+        // Evaluate the structured data based on the provided form data, sequence, and preferences
+        let result = Evaluate(structurizedData, pre_data, moduleInfo);
 
 
-
-        // SAVE TO CSV
+         // SAVE TO CSV
         
         // const csvFilePath = path.join(__dirname, '../Result', `${parsedFormData["College Name"]}_${timestamp}.csv`);
         // const csvWriter = createObjectCsvWriter({
@@ -101,6 +110,7 @@ const saveToDB = async (Sequence, FormData, outputFilePath,ModuleInfo,COPref) =>
         // XLSX.writeFile(wb, xlsxFilePath);
         // console.log('XLSX file written successfully');
 
+        // Save the paper data to MongoDB
         const paper = new PaperInfo({
             "College Name": parsedFormData["College Name"],
             "Branch": parsedFormData.Branch,
@@ -111,14 +121,16 @@ const saveToDB = async (Sequence, FormData, outputFilePath,ModuleInfo,COPref) =>
             "Course Teacher": parsedFormData["Course Teacher"],
             "No. Of Questions": parsedFormData["No. Of Questions"],
             "Total Marks": parsedFormData["Total Marks"],
-            Sequence: Sequence,
-            "Collected Data": structurizedData,
+            "Collected Data": structurizedData,  // Store the structured data
         });
-        // console.log(structurizedData)
+
+        // Save the paper information to the database
         await paper.save();
-        // console.log('Data saved to MongoDB');
+
+        // Return the evaluation result after saving to the database
         return result;
     } catch (error) {
+        // Catch any errors during the database save process
         console.error('Error saving to MongoDB:', error);
         return [];
     }

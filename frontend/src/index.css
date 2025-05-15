@@ -1,0 +1,46 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+
+.heading svg{
+  font-size: 1.3em;
+  margin: 0 0.5em;
+}
+
+.heading {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.heading .tooltiptext {
+  visibility: hidden;
+  width: fit-content;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 15px;
+  max-width: 15em;
+  text-align:left;
+  border-radius: 6px;
+ 
+  /* Position the tooltip text - see examples below! */
+  /* position: absolute; */
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.heading:hover .tooltiptext {
+  visibility: visible;
+}

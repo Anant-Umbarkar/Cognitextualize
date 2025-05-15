@@ -34,9 +34,9 @@ const COColumn = ({id,last,Add,Remove,Update,w8}) => {
                 <option defaultChecked value="Def">Choose</option>
                 <option value="1">Create</option>
                 <option value="2">Evaluate</option>
-                <option value="3">Apply</option>
-                <option value="4">Understand</option>
-                <option value="5">Analyse</option>
+                <option value="3">Analyze</option>
+                <option value="4">Apply</option>
+                <option value="5">Understand</option>
                 <option value="6">Remember</option>
             </select>
         </div>

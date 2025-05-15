@@ -1,0 +1,82 @@
+/* Ensure the page takes full height and footer stays at bottom */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-outer {
+  width: 100%;
+  margin-top: 2em; /* Push footer to bottom */
+
+  /* border-top: 1px solid #b9b9b9; */
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.c1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navlinks {
+  display: flex;
+  gap: 20px;
+}
+
+.navlinks li,
+.navlinks li a {
+  color: black;
+    text-decoration: none;
+    /* padding: 0.5rem 1rem; */
+    height: 100%;
+    border-bottom: 3px solid transparent;
+    list-style: none;
+}
+
+
+.c2 {
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.nav-logo-footer {
+  color: #3366ff;
+  align-items: center;
+  margin-left: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 2rem;
+  flex-grow: 1;
+
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+
+.nav-logo-footer .icon {
+  display: inline-block;
+  width: 3rem;
+  height: 3rem;
+  margin-left: 16px;
+} 

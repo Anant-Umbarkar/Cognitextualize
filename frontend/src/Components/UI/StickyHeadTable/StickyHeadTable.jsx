@@ -117,7 +117,7 @@ import TableRow from '@mui/material/TableRow';
 
 
 
-const StickyHeadTable=({data,columns,type="normal",negative=0})=>{
+const StickyHeadTable=({data,columns,updatedBloom,type="normal",negative=0})=>{
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -152,7 +152,11 @@ const StickyHeadTable=({data,columns,type="normal",negative=0})=>{
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={Math.random().toString(36).substr(2, 9)}>
                     {columns.map((column) => {
-                      const value = row[column.label];
+                      let value = row[column.label];
+                      console.log(column.label,row[column.label],updatedBloom)
+                      if(column.label=="Bloom's Taxonomy Level"){
+                        value=updatedBloom[value].level
+                      }
                       return (
                         <TableCell style={{background:(column.label=="Deviation")?(negative<0)?"#ff9494":"#96ff94":"white", color:(column.lebel=="Deviation" && negative<0)?"#ff0000":"black",fontWeight:(column.label=="Deviation")?"bold":"normal"}} key={column.id} align={column.align}>
                           {value}
