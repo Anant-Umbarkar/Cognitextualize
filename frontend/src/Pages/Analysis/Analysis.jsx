@@ -485,7 +485,7 @@ const Analysis = () => {
 
       // Sending request to get the result
       // axios.post("https://cognitextualize-9mqt.onrender.com/totext/",FileData, {
-      axios.post("http://localhost/totext/",FileData, {
+      axios.post("https://cognitextualize-li0n.onrender.com/totext/",FileData, {
         "Content-Type": "multipart/form-data",
         headers:{
           Authorization:`Bearer ${token}`
