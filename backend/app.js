@@ -23,7 +23,7 @@ let PORT = process.env.PORT || 80;
 
 // CORS configuration
 const corsOptions = {
-  origin: ['https://cognitextualize-dh07a07sj-utkarshmhubs-projects.vercel.app', 'https://cognitextualize.vercel.app','http://localhost:5173'],
+  origin: "*",
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
@@ -33,7 +33,7 @@ app.use(cors(corsOptions));
 app.options('*', cors()); // Allow preflight requests for all routes
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://UtMandape:1BGR3QO2fcFmFHXw@cluster0.akibk.mongodb.net/CogniTextualize?retryWrites=true&w=majority');
+mongoose.connect("mongodb+srv://anantkumarumbarkar:Umbarkar1234@cluster0.susii7h.mongodb.net/cognitextualize?retryWrites=true&w=majority&appName=Cluster0");
 
 // Handle MongoDB connection events
 const db = mongoose.connection;

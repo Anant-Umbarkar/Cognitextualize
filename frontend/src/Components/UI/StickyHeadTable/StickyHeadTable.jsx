@@ -115,7 +115,14 @@ import TableRow from '@mui/material/TableRow';
 //   }
 // ];
 
-
+let bloomLevels = {
+  6:"remember",
+  5:"understand",
+  4:"apply",
+  3:"analyze",
+  2:"evaluate",
+  1:"create",
+};
 
 const StickyHeadTable=({data,columns,updatedBloom,type="normal",negative=0})=>{
   const [page, setPage] = React.useState(0);
@@ -155,7 +162,7 @@ const StickyHeadTable=({data,columns,updatedBloom,type="normal",negative=0})=>{
                       let value = row[column.label];
                       console.log(column.label,row[column.label],updatedBloom)
                       if(column.label=="Bloom's Taxonomy Level"){
-                        value=updatedBloom[value].level
+                        value=bloomLevels[updatedBloom[value].level]
                       }
                       return (
                         <TableCell style={{background:(column.label=="Deviation")?(negative<0)?"#ff9494":"#96ff94":"white", color:(column.lebel=="Deviation" && negative<0)?"#ff0000":"black",fontWeight:(column.label=="Deviation")?"bold":"normal"}} key={column.id} align={column.align}>

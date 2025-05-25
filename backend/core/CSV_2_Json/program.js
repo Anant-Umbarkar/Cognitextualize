@@ -66,12 +66,12 @@ const bloomsTaxonomyLevels = {
 };
 
 let bloomLevels = {
-    "remember": 1,
-    "understand": 2,
-    "apply": 3,
-    "analyze": 4,
-    "evaluate": 5,
-    "create": 6,
+    "remember": 6,
+    "understand": 5,
+    "apply": 4,
+    "analyze": 3,
+    "evaluate": 2,
+    "create": 1,
 };
 
 
@@ -94,7 +94,7 @@ function FindBloomLevelsInText(text){
     const words = text.split(/\W+/); // Split by word characters
         const wordResult = [];
         const levelResult = [];
-        let highestLevel = 0; // Initialize highest level
+        let highestLevel = 6; // Initialize highest level
       
         for (const word of words) {
           const level = findBloomLevel(word.toLowerCase());
@@ -102,7 +102,7 @@ function FindBloomLevelsInText(text){
             const levelIndex = getBloomLevelIndex(level);
             wordResult.push(word);
             levelResult.push(levelIndex);
-            highestLevel = Math.max(highestLevel, levelIndex); // Update highest level
+            highestLevel = Math.min(highestLevel, levelIndex); // Update highest level
           }
         }
       

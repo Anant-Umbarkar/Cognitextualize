@@ -254,7 +254,8 @@ function Auth() {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("https://cognitextualize-9mqt.onrender.com/users/signup", signupData);
+      // const res = await axios.post("https://cognitextualize-9mqt.onrender.com/users/signup", signupData);
+      const res = await axios.post("http://localhost/users/signup", signupData);
       localStorage.setItem("token", res.data.token);
       navigate("/"); // redirect after signup
     } catch (err) {
@@ -265,7 +266,8 @@ function Auth() {
   const handleSignin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("https://cognitextualize-9mqt.onrender.com/users/signin", signinData);
+      // const res = await axios.post("https://cognitextualize-9mqt.onrender.com/users/signin", signinData);
+      const res = await axios.post("http://localhost/users/signin", signinData);
       localStorage.setItem("token", res.data.token);
       navigate("/"); // redirect after login
     } catch (err) {
